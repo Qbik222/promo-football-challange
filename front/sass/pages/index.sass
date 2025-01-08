@@ -1,67 +1,499 @@
 $blue: #000055
+$dark-blue: #00003d
+$dark-blue2: #002
 $white: #ffffff
 $magenta: #FF267E
-$green: #3AFFC3
-$black: #1B1B1F
+$green-hover: #00F8AD
+$green: #05C48A
+$black: #000000
 
 $font-suisse-intl-reg: SuisseIntl-Regular, sans-serif
 $font-suisse-intl-bold: SuisseIntl-Bold, sans-serif
-$font-legal: DINPro-CondLight, sans-serif
-$font-riffic-bold: Riffic-Bold, sans-serif
+$font-spaceland-it: Spaceland-Italic, sans-serif
+$font-spaceland: Spaceland, sans-serif
+
 
 body
   overscroll-behavior: none
+  -webkit-tap-highlight-color: transparent
   img
     max-width: 100%
     height: auto
-.land
-  height: calc(100% - 83px)
-  position: relative
-  &__logo
-    position: absolute
-    top: 0
-    left: 0
-    max-width: 300px
-.footer
-  background: $blue
-  height: 83px
-  display: flex
-  padding: 5px 20px 5px 35px
+
+._hidden
+  display: none !important
+
+.info-icon
+  width: 26px
+  height: 25px
+  background: url("../img/info-icon.png") no-repeat 0 0/contain
+  transition: all .4s ease-in-out
+  &:hover
+    background: url("../img/info-icon-hover.png") no-repeat 0 0/contain
+    cursor: pointer
+
+.btn
+  min-width: 380px
+  display: inline-flex
   align-items: center
-  justify-content: space-between
-  &__wrap
-    display: flex
-    align-items: center
+  justify-content: center
+  position: relative
+  transition: all .4s ease-in-out
+  &:hover
+    transform: scale(1.02)
+  .btn-txt
+    text-align: center
+    color: $dark-blue2
+    width: 100%
+    font-size: 53px
+    line-height: 77px
+    padding: 4px 5px 9px 5px
+    font-family: $font-spaceland-it
+    background: $green
+    text-transform: uppercase
+    z-index: 2
+    clip-path: polygon(3.34% 96.88%, 0.78% 3.13%, 98.45% 3.13%, 92.86% 83.85%, 3.34% 96.88%)
+    transition: all .4s ease-in-out
+    &:hover
+      background: $green-hover
+      cursor: pointer
+  &::before, &::after
+    content: ""
+    display: block
+    clip-path: polygon(3.34% 96.88%, 0.78% 3.13%, 98.45% 3.13%, 92.86% 83.85%, 3.34% 96.88%)
+    z-index: 1
+    position: absolute
+    transform: translate(-50%, -50%)
+  &::before
+    width: 104%
+    height: 115%
+    background: $dark-blue2
+    left: 50%
+    top: 50%
+  &::after
+    background: #00000F
+    width: 104%
+    height: 115%
+    z-index: 0
+    left: 52%
+    top: 60%
+
+.fav-page
+  display: flex
+  flex-direction: column
+  align-items: center
+  padding: 30px 0
+  background: url("../img/bg.jpg") no-repeat 0 0/cover
+  overflow: hidden
+
+
+.welcome
+  max-width: 1250px
+  width: 100%
+  height: 740px
+  display: flex
+  position: relative
+  background: url("../img/welcome/welcome-bg-desc.png") no-repeat 50% 0/cover
+  background-size: 1240px 700px
+  padding: 0 0 65px 85px
+  &__left
+    max-width: 450px
+    margin-top: auto
+  &__title
+    display: inline-block
+    background: $magenta
+    color: $dark-blue
+    font-family: $font-suisse-intl-bold
+    font-size: 29px
+    line-height: 29px
+    text-transform: uppercase
+    padding: 5px 6px 4px 6px
+    margin-bottom: 22px
+  &__subtitle
+    color: $magenta
+    text-transform: uppercase
+    font-size: 93px
+    line-height: 77px
+    text-shadow: 0px 1px 0px $black
+    font-family: $font-spaceland-it
+    margin-bottom: 22px
   &__text
     color: $white
-    font-family: $font-suisse-intl-reg
-    font-size: 14px
-    line-height: 22px
-    max-width: 975px
-    opacity: .8
-  &__licensed
-    display: flex
-    align-items: center
-    gap: 18px
-    margin: 0 35px 0 auto
-    flex-shrink: 0
-  &__btns
-    display: flex
-    align-items: center
-  &__appstore
-    display: block
-    background: url("../img/appleBtn.png") no-repeat 0 0/contain
-    width: 114px
-    height: 38px
-  &__googlePlay
-    display: block
-    background: url("../img/googleBtn.svg") no-repeat 0 0/contain
-    width: 128px
-    height: 38px
-    margin-left: 10px
+    font-family: $font-suisse-intl-bold
+    font-size: 26px
+    line-height: 29px
+    text-transform: uppercase
+    text-shadow: 0px 1px 0px $black
+    margin-bottom: 22px
 
-.legal
-  font-family: $font-legal
-  font-size: 4.7vw
-  padding: 0 15px
-  text-align: center
+  &__right
+    position: absolute
+    bottom: 45px
+    right: 17px
+  &__timer
+    position: absolute
+    bottom: -40px
+    right: 100px
+    z-index: 3
+    display: flex
+    flex-direction: column
+    align-items: center
+    &-title
+      position: relative
+      color: $white
+      z-index: 3
+      font-family: $font-suisse-intl-bold
+      font-size: 16px
+      line-height: 16px
+      text-transform: uppercase
+      padding: 9px 15px 7px 15px
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      transform: rotate(-2.29deg)
+      margin-bottom: -10px
+      &::before, &::after
+        content: ""
+        position: absolute
+        clip-path: polygon(99.24% 4.91%, 1.72% 4.91%, 0.47% 95.77%, 98.27% 86.14%, 99.24% 4.91%)
+      &:before
+        background: $dark-blue2
+        width: 100%
+        height: 100%
+        z-index: -1
+      &::after
+        background: $white
+        width: 102%
+        height: 120%
+        z-index: -2
+    &-list
+      display: flex
+      padding: 25px 22px 17px 20px
+      gap: 8px
+      position: relative
+      z-index: 0
+      &::before, &::after
+        content: ""
+        display: block
+        position: absolute
+        z-index: -1
+        clip-path: polygon(98.16% 2.01%, 2.96% 10.88%, 0.89% 92.65%, 98.16% 89.34%, 98.16% 2.01%)
+        transform: translate(-50%, -50%)
+      &::before
+        background: #0C0C0C
+        width: 103%
+        height: 106%
+        z-index: 0
+        top: 55%
+        left: 52%
+      &::after
+        background: $white
+        z-index: 1
+        width: 103%
+        height: 107%
+        left: 50%
+        top: 50%
+    &-item
+      display: flex
+      flex-direction: column
+      align-items: center
+      z-index: 3
+      &:nth-child(1)::before
+        content: ""
+        display: block
+        position: absolute
+        z-index: -1
+        clip-path: polygon(98.16% 2.01%, 2.96% 10.88%, 0.89% 92.65%, 98.16% 89.34%, 98.16% 2.01%)
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        background: $dark-blue2
+        width: 100%
+        height: 100%
+      &-num
+        padding: 0 0 3px 6px
+        color: $magenta
+        font-family: $font-spaceland
+        font-size: 60px
+        line-height: 60px
+        font-style: normal
+        letter-spacing: .08em
+        max-width: 70px
+        min-width: 70px
+        height: 67px
+        text-align: center
+        display: flex
+        align-items: center
+        justify-content: center
+        background: url("../img/welcome/timer-item-bg.png") no-repeat 0 0/contain
+      &-text
+        color: $white
+        font-family: $font-suisse-intl-bold
+        font-size: 13px
+        text-align: center
+        text-transform: uppercase
+        width: 100%
+        margin-top: 5px
+
+
+
+  &__lock
+    display: flex
+    align-items: flex-end
+    position: relative
+    &-left
+      max-width: 427px
+      min-width: 427px
+      margin-right: -240px
+    &-center
+      max-width: 466px
+      min-width: 466px
+      z-index: 2
+    &-right
+      max-width: 413px
+      min-width: 413px
+      margin-left: -265px
+  &__btn
+    margin-bottom: 50px
+  &__bottom-text
+    color: $white
+    font-size: 10px
+    line-height: 16px
+    font-family: $font-suisse-intl-reg
+    opacity: .9
+
+.chose
+  width: 100%
+  max-width: 1160px
+  display: flex
+  flex-direction: column
+  padding-top: 10px
+  align-items: center
+  &__title
+    color: $magenta
+    font-size: 53px
+    font-family: $font-spaceland
+    line-height: 53px
+    text-align: center
+    text-transform: uppercase
+    max-width: 870px
+  &__subtitle
+    font-size: 16px
+    line-height: 22px
+    font-family: $font-suisse-intl-reg
+    text-align: center
+    color: $white
+    max-width: 850px
+    margin-top: 10px
+  &__body
+    display: flex
+    width: 100%
+    background: url("../img/chose/chose-bg-desc.png") no-repeat 0 50%/contain
+    padding: 0 0 0 40px
+  &__pers
+    position: relative
+    max-width: 250px
+    z-index: 2
+    &-buble
+      position: absolute
+      width: 160px
+      height: 95px
+      top: -11px
+      right: -57px
+      background: url("../img/chose/bubble.png") no-repeat 0 0/contain
+      color: $dark-blue2
+      font-family: $font-suisse-intl-bold
+      font-size: 16px
+      line-height: 17px
+      padding: 12px 15px 40px 12px
+      text-align: center
+
+  &__list
+    display: flex
+    align-items: flex-start
+    padding-top: 20px
+    justify-content: center
+    gap: 45px
+  &__card
+    width: 250px
+    height: 395px
+    display: flex
+    flex-direction: column
+    padding-bottom: 20px
+    transition: transform .4s ease-in-out
+    &:hover
+      transform: scale(1.05)
+      .chose
+        &__card
+          &-title
+            transform: rotate(-4deg)
+    &-btn.btn
+      min-width: 145px
+      width: fit-content
+      margin: -5px auto -40px auto
+      position: relative
+      right: 10px
+      .btn-txt
+        font-size: 20px
+        line-height: 28px
+        padding: 2px 15px 5px 10px
+    &._easy
+      background: url("../img/chose/card-easy-bg.png") no-repeat 50% 0/contain
+    &._medium
+      background: url("../img/chose/card-medium-bg.png") no-repeat 50% 0/contain
+    &._height
+      background: url("../img/chose/card-hight-bg.png") no-repeat 50% 0/contain
+    &-title
+      width: 250px
+      background: url("../img/chose/card-title-bg.png") no-repeat 0 0/contain
+      color: $magenta
+      font-family: $font-spaceland-it
+      font-size: 52px
+      text-transform: uppercase
+      padding: 5px 0 20px 5px
+      display: flex
+      align-items: center
+      justify-content: center
+      margin-top: auto
+      transition: transform .4s ease-in-out
+      //position: relative
+      //right: 10px
+    &-text
+      color: $dark-blue2
+      text-align: center
+      font-size: 16px
+      font-family: $font-suisse-intl-reg
+      line-height: 24px
+      margin-top: -17px
+    &-bonus
+      color: $dark-blue2
+      font-size: 20px
+      text-transform: uppercase
+      font-family: $font-suisse-intl-bold
+      text-align: center
+      margin-bottom: 12px
+    &-minbet
+      background: $dark-blue2
+      color: $white
+      font-size: 12px
+      font-family: $font-suisse-intl-reg
+      display: inline-block
+      width: fit-content
+      margin: 0 auto
+      padding: 8px 4px 9px 6px
+      clip-path: polygon(2.54% 10.61%, 0.28% 90.91%, 100% 100%, 98.59% 1.52%, 2.54% 10.61%)
+    &-info
+      position: absolute
+      right: 2px
+      top: 0
+      transform: translate(100%, 0)
+
+
+.notify
+  width: 930px
+  height: 280px
+  position: relative
+  background: url("../img/notify/notify-bg-desc.png") no-repeat 0 0/contain
+  margin-bottom: 60px
+  &__info
+    display: block
+    position: absolute
+    right: 0
+    top: 15px
+  &__pers
+    position: absolute
+    left: -110px
+    top: -5px
+    max-width: 730px
+    &-buble
+      width: 240px
+      height: 83px
+      position: absolute
+      right: -62px
+      top: -20px
+      color: $dark-blue2
+      font-family: $font-suisse-intl-bold
+      font-size: 16px
+      line-height: 17px
+      text-align: center
+      padding: 9px 30px 40px 25px
+      background: url("../img/notify/buble-desc.png") no-repeat 0 0/contain
+      z-index: 2
+  &__cup
+    position: absolute
+    right: 0
+    bottom: -49px
+    //transform: translate(0, -50%)
+    width: 470px
+    height: 500px
+    background: url("../img/notify/cup-bg.png") no-repeat 50% 0/contain
+    &-img
+      display: block
+      max-width: 200px
+      position: absolute
+      left: 50%
+      top: 120px
+      transform: translate(-50%, 0)
+      &::before
+        content: ""
+        display: block
+        width: 106px
+        height: 146px
+        position: absolute
+        top: 45px
+        left: 50%
+        transform: translate(-50%, 0)
+        background: rgba(#FDE79E, .4)
+        border-radius: 50%
+        z-index: -1
+        box-shadow: 0px 0px 50px #FDE79E
+
+
+details summary::-webkit-details-marker
+  display: none
+
+.drop
+  max-width: 540px
+  width: 100%
+  margin: 0 auto
+  border-radius: 10px
+  position: relative
+  z-index: 5
+  .dropdown[open] summary::before
+    transform:  rotate(180deg)
+  summary
+    list-style: none
+    padding: 15px
+    font-family: $font-suisse-intl-reg
+    font-size: 16px
+    cursor: pointer
+    border: 2px solid $white
+    background: $dark-blue2
+    display: flex
+    align-items: center
+    justify-content: space-between
+    color: $white
+    &::before
+      content: ""
+      display: block
+      min-width: 25px
+      height: 25px
+      background: url("../img/arrow-drop.png") no-repeat 0 0/contain
+      order: 2
+
+  &-txt
+    padding: 15px
+    background: $dark-blue2
+    margin-top: 10px
+    max-height: 350px
+    overflow-y: scroll
+    border: 2px solid $white
+    &-list
+      display: flex
+      flex-direction: column
+      gap: 15px
+      p, strong
+        font-size: 16px
+        line-height: 26px
+        font-family: $font-suisse-intl-reg
+        color: $white
