@@ -972,3 +972,66 @@ details summary::-webkit-details-marker
       right: 2px
       top: 0
       transform: translate(100%, 0)
+
+// popups
+.popup
+  width: 100%
+  height: 100%
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 11
+  display: flex
+  align-items: center
+  justify-content: center
+  background: rgba($black, .5)
+  transition: opacity .4s ease-in-out
+  &._opacity
+    opacity: 0
+    z-index: -10
+
+  &__item
+    display: none
+    width: 510px
+    position: relative
+    &._active
+      display: block
+  &__scroll
+    width: 100%
+    scrollbar-width: auto
+    max-height: 280px
+    overflow-y: auto
+    padding: 16px
+    border: 2px solid $white
+    background: rgba($black, .9)
+    &::-webkit-scrollbar
+      background: $white
+      width: 3px
+    &::-webkit-scrollbar-thumb
+      width: 3px
+      background: $green
+      border-radius: 5px
+  &__close
+    position: absolute
+    top: -30px
+    right: 0
+    width: 27px
+    height: 24px
+    background: url("../img/close.png") no-repeat 0 0/contain
+    transition: background .4s ease-in-out
+    &:hover
+      cursor: pointer
+      background: url("../img/close-hover.png") no-repeat 0 0/contain
+
+  &__text
+    color: $white
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    gap: 15px
+    font-size: 16px
+    line-height: 26px
+    & > *
+      font-family: $font-suisse-intl-reg
+
+
