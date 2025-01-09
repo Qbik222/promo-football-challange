@@ -1,3 +1,9 @@
+button.menu-btn menu
+.menu-test
+    button.easy easy
+    button.medium medium
+    button.hight hight
+    button.not-join not join
 .fav-page
     .welcome
         .welcome__left
@@ -37,7 +43,7 @@
                         source(media="(min-width: 601px) and (max-width: 1300px) and (orientation: portrait)" srcset="./img/welcome/kratos-mob.png")
                         source(media="(min-width: 601px) and (orientation: landscape)" srcset="./img/welcome/kratos-desc.png")
                         img(src="./img/welcome/kratos-desc.png" alt="Favbet")
-            .welcome__open._hidden
+            .welcome__open
                 .welcome__open-left
                     picture
                         source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/welcome/kratos-mob.png")
@@ -46,6 +52,26 @@
                         source(media="(min-width: 601px) and (orientation: landscape)" srcset="./img/welcome/kratos-desc.png")
                         img(src="./img/welcome/kratos-desc.png" alt="Favbet")
                 .welcome__open-center
+                        .welcome__list
+                            .welcome__card._easy.card
+                                .welcome__card-selected(data-translate="cardSelected") Вітаємо, ти обрав рівень
+                                .welcome__card-title(data-translate="cardTitleEasy") новачок
+                                .welcome__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
+                                .welcome__card-bonus(data-translate="cardBonusEasy") до 2 500 ₴
+                                .welcome__card-minbet(data-translate="cardMinbetEasy") Мінімальна ставка: від 150 ₴
+                            .welcome__card._medium.card
+                                .welcome__card-selected(data-translate="cardSelected") Вітаємо, ти обрав рівень
+                                .welcome__card-title(data-translate="cardTitleMedium") на досвіді
+                                .welcome__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
+                                .welcome__card-bonus(data-translate="cardBonusMedium") до 3000 ₴
+                                .welcome__card-minbet(data-translate="cardMinbetMedium") Мінімальна ставка: від 300 ₴
+                            .welcome__card._hight.card
+                                .welcome__card-selected(data-translate="cardSelected") Вітаємо, ти обрав рівень
+                                .welcome__card-title(data-translate="cardTitleHight") божевільний
+                                .welcome__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
+                                .welcome__card-bonus(data-translate="cardBonusHight") до 6000 ₴
+                                .welcome__card-minbet(data-translate="cardMinbetHight") Мінімальна ставка: від 600 ₴
+
                 .welcome__open-right
                     picture
                         source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/welcome/zeus-mob.png")
@@ -85,20 +111,139 @@
                     .chose__card-title(data-translate="cardTitleEasy") новачок
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
                     .chose__card-bonus(data-translate="cardBonusEasy") до 2 500 ₴
-                    .chose__card-minbet(data-translate="cardMinbet") Мінімальна ставка: від 150 ₴
+                    .chose__card-minbet(data-translate="cardMinbetEasy") Мінімальна ставка: від 150 ₴
                     .chose__card-btn.btn(data-translate="cardBtnEasy") #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="partBtn") вибрати новачок]
                 .chose__card._medium.card
                     .chose__card-title(data-translate="cardTitleMedium") на досвіді
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
                     .chose__card-bonus(data-translate="cardBonusMedium") до 3000 ₴
-                    .chose__card-minbet(data-translate="cardMinbet") Мінімальна ставка: від 300 ₴
+                    .chose__card-minbet(data-translate="cardMinbetMedium") Мінімальна ставка: від 300 ₴
                     .chose__card-btn.btn(data-translate="cardBtnMedium") #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="partBtn") вибрати на досвіді]
-                .chose__card._height.card
+                .chose__card._hight.card
                     .chose__card-title(data-translate="cardTitleHight") божевільний
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
                     .chose__card-bonus(data-translate="cardBonusHight") до 6000 ₴
-                    .chose__card-minbet(data-translate="cardMinbet") Мінімальна ставка: від 600 ₴
+                    .chose__card-minbet(data-translate="cardMinbetHight") Мінімальна ставка: від 600 ₴
                     .chose__card-btn.btn(data-translate="cardBtnHight") #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="partBtn") вибрати божевільний]
+    .result
+        .result__text.
+            3 21.01 по 30.01.2025 роби від 3-х до 10 виграшних ставок
+            (Ординар) поспіль на футбольні події у розділі «Спорт» та «LIVE» і отримай бонус «Страховка Ставки».
+        .drop
+            details.dropdown
+                summary(data-translate="detailsBtn") Офіційні правила
+                .drop-txt
+                    .drop-txt-list(data-translate="details")
+                        strong 1. Як взяти участь?
+                        p Авторизуйся на акційній сторінці, натиснувши кнопку «Авторизуйся», або зареєструйся як користувач. Натисни кнопку «Взяти участь» на сторінці Акції.
+                        strong 2. Набір балів
+                        p З 14.06.2024 до 14.07.2024 роби виграшні ставки на спортивні події в рамках Євро 2024 у розділах «Спорт» та «LIVE» заробляй бали в загальну турнірну таблицю.
+                        p Ставки на спортивні події повинні бути від 200 грн, розраховані з результатом «Виграш» та з коефіцієнтом від 1.5 (ординар), або від 3.5 (експрес від 3 подій), без використання «CashOut» та «Повернення ставки».
+                        strong 3.Вгадай точний рахунок топ-матчів етапу. Вгадай точний рахунок запропонованих топ-матчів та помнож свої бали в турнірній таблиці.
+                        p За 1 вгаданий рахунок - бали помножуються на х2.
+                        p За 2 вгаданих рахунки - бали помножуються на х3.
+                        p За 3 вгаданих ранунки- бали помножуються на х5
+                        strong 4. Отримуй бали та можливість виграти призи.
+                        p Чим більше балів, тим більше шансів здобути приз.
+                        p Бали нараховуватимуться та відображатимуться в Турнірній таблиці.
+                        p Після завершення кожного окремого періоду, переможці матимуть право отримати приз згідно із зайнятим призовим місцем.
+        .result__table
+            .result__pers
+                .result__pers-buble(data-translate="resultBuble") Більше виграшних ставок поспіль — більше бонус «Страховка ставки»
+                picture.result__pers-img
+                    source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/welcome/gladiator-mob.png")
+                    source(media="(max-width: 950px) and (orientation: landscape) and (max-height: 450px)" srcset="./img/welcome/gladiator-mob.png")
+                    source(media="(min-width: 601px) and (max-width: 1300px) and (orientation: portrait)" srcset="./img/welcome/gladiator-mob.png")
+                    source(media="(min-width: 601px) and (orientation: landscape)" srcset="./img/welcome/gladiator-desc.png")
+                    img(src="./img/welcome/gladiator-desc.png" alt="Favbet")
+            .result__right._easy
+                .result__top._easy
+                    .result__top-title(data-translate="cardTitleEasy") новачок
+                    .result__top-text(data-translate="cardText") Бонус <br> Страховка Ставки
+                    .result__top-bonus(data-translate="cardBonusEasy") до 2500 ₴
+                    .result__top-minbet(data-translate="cardMinbetEasy") Мінімальна ставка: від 150 ₴
+                .result__top._medium
+                    .result__top-title(data-translate="cardTitleMedium") на досвіді
+                    .result__top-text(data-translate="cardText") Бонус <br> Страховка Ставки
+                    .result__top-bonus(data-translate="cardBonusMedium") до 3000 ₴
+                    .result__top-minbet(data-translate="cardMinbetMedium") Мінімальна ставка: від 300 ₴
+                .result__top._hight
+                    .result__top-title(data-translate="cardTitleHight") божевільний
+                    .result__top-text(data-translate="cardText") Бонус <br> Страховка Ставки
+                    .result__top-bonus(data-translate="cardBonusHight") до 6000 ₴
+                    .result__top-minbet(data-translate="cardMinbetHight") Мінімальна ставка: від 600 ₴
+                .result__bets
+                    .result__bets-item._fail
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 1
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item._done
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 2
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item.you
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 3
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 4
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 5
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 6
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 7
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 8
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 9
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                    .result__bets-item
+                        .result__bets-text #[span(data-translate="resultBet") ставка ] 10
+                        .result__bets-status
+                        .result__bets-icon
+                            .result__bets-you(data-translate="you") ти
+                a(href="#").result__btn.btn.btn-join #[span.btn-txt(data-translate="mainBtn") до гри]
+            .result__last-upd #[span(data-translate='resultUpd') Твоя шкала оновилась ] 21.01 о 16:30
+        .drop
+            details.dropdown
+                summary(data-translate="lastBetBtn") Офіційні правила
+                .drop-txt
+                    .drop-txt-list(data-translate="lastBet")
+                        strong 1. Як взяти участь?
+                        p Авторизуйся на акційній сторінці, натиснувши кнопку «Авторизуйся», або зареєструйся як користувач. Натисни кнопку «Взяти участь» на сторінці Акції.
+                        strong 2. Набір балів
+                        p З 14.06.2024 до 14.07.2024 роби виграшні ставки на спортивні події в рамках Євро 2024 у розділах «Спорт» та «LIVE» заробляй бали в загальну турнірну таблицю.
+                        p Ставки на спортивні події повинні бути від 200 грн, розраховані з результатом «Виграш» та з коефіцієнтом від 1.5 (ординар), або від 3.5 (експрес від 3 подій), без використання «CashOut» та «Повернення ставки».
+                        strong 3.Вгадай точний рахунок топ-матчів етапу. Вгадай точний рахунок запропонованих топ-матчів та помнож свої бали в турнірній таблиці.
+                        p За 1 вгаданий рахунок - бали помножуються на х2.
+                        p За 2 вгаданих рахунки - бали помножуються на х3.
+                        p За 3 вгаданих ранунки- бали помножуються на х5
+                        strong 4. Отримуй бали та можливість виграти призи.
+                        p Чим більше балів, тим більше шансів здобути приз.
+                        p Бали нараховуватимуться та відображатимуться в Турнірній таблиці.
+                        p Після завершення кожного окремого періоду, переможці матимуть право отримати приз згідно із зайнятим призовим місцем.
+
     .notify
         .notify__pers
             .notify__pers-buble(data-translate="choseBuble") #[span.notify__info.info-icon ] Пам'ятай: в тебе одне право на помилку
