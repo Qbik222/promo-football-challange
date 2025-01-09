@@ -108,10 +108,13 @@ body
       &__timer
         bottom: 15px
         right: 240px
+        animation: 2.6s showBtnDelay ease-in-out
       &__lock
         display: none
       &__open
         display: flex
+      &__btn
+        animation: 2.3s showBtnDelay ease-in-out
       &__card
         padding-bottom: 11px
         &-title
@@ -147,10 +150,10 @@ body
             z-index: -2
         &:hover
           transform: none
-    .result
-      display: flex
+    //.result
+    //  display: flex
     .chose
-      display: none
+      //display: none
       &__card
         display: flex
   &._easy
@@ -431,6 +434,22 @@ body
       max-width: 427px
       min-width: 427px
       margin-right: -240px
+      animation: showLeftPers 1.2s ease-in-out
+      position: relative
+      z-index: 1
+      background: url("../img/lightning.gif") no-repeat 0 0/contain
+      //
+      //&::before
+      //  content: ""
+      //  display: block
+      //  background: url("../img/lightning.gif") no-repeat 0 0/contain
+      //  width: 70%
+      //  height: 70%
+      //  position: absolute
+      //  z-index: -1
+      //  left: 50%
+      //  top: 0
+      //  transform: translate(-50%, 0)
     &-center
       max-width: 466px
       min-width: 466px
@@ -439,6 +458,21 @@ body
       max-width: 413px
       min-width: 413px
       margin-left: -265px
+      animation: showRightPers 1.2s ease-in-out
+      position: relative
+      z-index: 1
+      background: url("../img/fire.gif") no-repeat 0 0/contain
+      //&::before
+      //  content: ""
+      //  display: block
+      //  background: url("../img/fire.gif") no-repeat 0 0/contain
+      //  width: 70%
+      //  height: 70%
+      //  position: absolute
+      //  z-index: -1
+      //  left: 50%
+      //  top: 0
+      //  transform: translate(-50%, 0)
 
   &__open
     display: none
@@ -446,18 +480,22 @@ body
       max-width: 390px
       min-width: 390px
       margin: 0
+      background: url("../img/fire.gif") no-repeat 0 0/contain
     &-center
       margin: 65px -90px auto -75px
       min-width: auto
+      animation: showCenterWelcome 2s ease-in-out
     &-right
       margin: 0 -40px 0 0
       min-width: 410px
       max-width: 410px
+      background: url("../img/lightning.gif") no-repeat 0 0/contain
   &__card
     display: none
 
   &__btn
     margin-bottom: 50px
+    animation: showBtn 1.5s ease-in-out
   &__bottom-text
     color: $white
     font-size: 10px
@@ -475,6 +513,7 @@ body
   z-index: 1
   &__card
     display: flex
+    opacity: 0
   &__title
     color: $magenta
     font-size: 53px
@@ -518,13 +557,14 @@ body
 
 
 .result
-  //display: flex
   display: none
   flex-direction: column
   align-items: flex-start
   width: 100%
   max-width: 1030px
   padding: 20px 0 60px 0
+  height: 600px
+  opacity: 0
   &__text
     color: $white
     max-width: 830px
@@ -538,15 +578,26 @@ body
     display: flex
     align-items: center
     max-height: 590px
-    background: url("../img/result/result-bg.png") no-repeat 50% 50%/contain
     margin: 85px 0
     position: relative
     padding: 0 60px 0 0
+    z-index: 1
+    &::before
+      content: ""
+      background: url("../img/result/result-bg.png") no-repeat 50% 50%/contain
+      width: 100%
+      height: 100%
+      z-index: -1
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
   &__pers
     max-width: 425px
     position: relative
     bottom: 11px
     left: 37px
+    opacity: 0
     &-img
       display: block
       transform: scale(-1, 1)
@@ -584,6 +635,8 @@ body
       padding: 0 16px 2px 16px
       position: relative
       z-index: 1
+      opacity: 0
+      transform: translate(-30px, 0)
       &:nth-child(1)
         z-index: 10
       &:nth-child(2)
@@ -653,6 +706,7 @@ body
       color: $dark-blue2
       text-transform: uppercase
       padding: 0 4px 1px 0
+      opacity: 0
     &-status
       background: url("../img/result/lock.png") no-repeat 0 0/contain
       width: 38px
@@ -726,6 +780,8 @@ body
     flex-direction: column
     align-items: flex-start
     padding: 10px 0 0 135px
+    opacity: 0
+    transform: scale(1.1)
     &::before
       content: ""
       display: block
@@ -770,6 +826,8 @@ body
       padding: 7px 7px 9px 8px
       clip-path: polygon(2.21% 9.29%, 0.16% 91.1%, 100% 98.57%, 98.69% 2.4%, 2.21% 9.29%)
       margin-left: -10px
+  &__btn
+    opacity: 0
 
 
 .notify
@@ -778,6 +836,7 @@ body
   position: relative
   background: url("../img/notify/notify-bg-desc.png") no-repeat 0 0/contain
   margin-bottom: 60px
+  transition: all .5s ease-in-out
   &__info
     display: block
     position: absolute
@@ -788,6 +847,8 @@ body
     left: -110px
     top: -5px
     max-width: 730px
+    background: url("../img/lightning.gif") no-repeat 50% 0/contain
+    opacity: 0
     &-buble
       width: 240px
       height: 83px
@@ -802,6 +863,7 @@ body
       padding: 9px 30px 40px 25px
       background: url("../img/notify/buble-desc.png") no-repeat 0 0/contain
       z-index: 2
+      opacity: 0
   &__cup
     position: absolute
     right: 0
@@ -817,6 +879,7 @@ body
       left: 50%
       top: 120px
       transform: translate(-50%, 0)
+      animation: float 3s ease-in-out infinite
       &::before
         content: ""
         display: block
@@ -830,6 +893,7 @@ body
         border-radius: 50%
         z-index: -1
         box-shadow: 0px 0px 50px #FDE79E
+        animation: opacity 2s ease-in-out infinite
 
 
 details summary::-webkit-details-marker
@@ -1035,3 +1099,153 @@ details summary::-webkit-details-marker
       font-family: $font-suisse-intl-reg
 
 
+@keyframes showBtn
+  0%
+    opacity: 0
+    transform: translate(0, 20px) scale(1.05)
+  50%
+    opacity: 1
+    transform: scale(1.05)
+  100%
+    transform: scale(1)
+
+@keyframes showLeftPers
+  0%
+    opacity: 0
+    transform: translate(-10%, 0)
+  100%
+    opacity: 1
+    transform: translate(0, 0)
+
+@keyframes showRightPers
+  0%
+    opacity: 0
+    transform: translate(10%, 0)
+  100%
+    opacity: 1
+    transform: translate(0, 0)
+
+@keyframes float
+  0%, 100%
+    transform: translate(-50%, -5px)
+  50%
+    transform: translate(-50%, 5px)
+
+@keyframes opacity
+  0%, 100%
+    opacity: .6
+  50%
+    opacity: 1
+
+@keyframes showCenterWelcome
+  0%
+    transform: translate(0, 30px) scale(1.05)
+    opacity: 0
+  50%
+    transform: translate(0, 30px) scale(1.05)
+    opacity: 0
+  75%
+    transform: translate(0, 0) scale(1.05)
+    opacity: 1
+  100%
+    transform: none
+
+@keyframes showBtnDelay
+  0%
+    transform: translate(0, 30px) scale(1.05)
+    opacity: 0
+  50%
+    transform: translate(0, 30px) scale(1.05)
+    opacity: 0
+  75%
+    transform: translate(0, 0) scale(1.05)
+    opacity: 1
+  100%
+    transform: none
+
+@keyframes showZeus
+  0%
+    opacity: 0
+    transform: translate(-90px, 90px)
+  100%
+    opacity: 1
+    transform: none
+
+@keyframes showZeusBuble
+  0%
+    opacity: 0
+    transform: translate(-50px, 0)
+  100%
+    transform: none
+    opacity: 1
+
+@keyframes moveRight
+  0%
+    opacity: 1
+    transform: none
+  100%
+    opacity: 0
+    transform: translate(40px, 0)
+
+@keyframes showBg
+  0%
+    transform: scale(1.1) translate(-50%, -50%)
+    top: 58%
+  50%
+    transform: scale(1.1) translate(-50%, -50%)
+    top: 50%
+  100%
+    transform: scale(1) translate(-50%, -50%)
+
+@keyframes showYou
+  0%
+    transform: scale(1.2)
+    opacity: 0
+  100%
+    transform: scale(1)
+    opacity: 1
+
+.showZeus
+  animation: showZeus 1.2s ease-in-out
+  opacity: 1
+
+.showZeusBuble
+  animation: showZeusBuble .7s ease-in-out
+  opacity: 1
+
+.showCard
+  animation: showZeusBuble .6s ease-in-out
+  opacity: 1
+
+.choseHide
+  transition: all 1s ease-in-out
+  .card, .chose__pers
+    animation: moveRight .6s ease-in-out
+    opacity: 0
+
+.resultShow
+  display: flex
+  transition: all 1.2s ease-in-out
+  opacity: 1
+  .result
+    &__top
+      transition: all 1.5s ease-in-out
+      transform: none
+      opacity: 1
+    &__pers
+      opacity: 1
+      transition: .7s ease-in-out
+    &__table
+      &::before
+        transform-origin: left top
+        animation: showBg 1s ease-in-out
+
+
+.showItem
+  transition: all .7s ease-in-out
+  transform: none
+  opacity: 1
+
+.showYou, .showBtn
+  animation: showYou .8s ease-in-out
+  opacity: 1
