@@ -173,6 +173,11 @@
       font-size: 9px
       line-height: 12px
       max-width: 560px
+    &__open, &__lock
+      &::before
+        width: 460px
+        height: 180px
+        left: 60%
   .chose
     max-width: 700px
     min-width: 700px
@@ -190,6 +195,8 @@
         padding: 41px 16px 10px 29px
         top: 93px
         right: -55px
+      &::before
+        bottom: 10%
     &__list
       flex-direction: column
       padding-top: 35px
@@ -307,6 +314,10 @@
     &__right
       position: absolute
       min-width: 330px
+    &__open, &__close
+      &::before
+        bottom: -30px
+        left: 55%
   .chose
     max-width: 375px
     min-width: 375px

@@ -8,6 +8,16 @@ const mainPage = document.querySelector(".fav-page"),
 function setPopup (wrap, popupName, btns, popupItems){
     let popup = wrap.querySelector(`.${popupName}`)
 
+    wrap.addEventListener("click", (e) =>{
+        e.target === wrap ? closePopup() : null
+    })
+
+    const closePopup = () =>{
+        popup.classList.remove("_active")
+        document.body.style.overflow = "auto"
+        wrap.classList.add("_opacity")
+    }
+
     btns.forEach(btn => {
         if(btn.parentNode.parentNode.classList.contains(popupName)){
             btn.addEventListener("click", () =>{
@@ -20,9 +30,7 @@ function setPopup (wrap, popupName, btns, popupItems){
             })
             let closeBtn = popup.querySelector(".popup__close")
             closeBtn.addEventListener("click", () =>{
-                popup.classList.remove("_active")
-                document.body.style.overflow = "auto"
-                wrap.classList.add("_opacity")
+                    closePopup()
             })
         }
     })

@@ -447,6 +447,18 @@ body
     display: flex
     align-items: flex-end
     position: relative
+    &::before
+      content: ""
+      display: block
+      width: 700px
+      height: 290px
+      background: url("../img/welcome/particle.png") no-repeat 0 0/contain
+      position: absolute
+      bottom: 0
+      left: 50%
+      transform: translate(-50%, 0)
+      z-index: 3
+      pointer-events: none
     &-left
       max-width: 427px
       min-width: 427px
@@ -575,6 +587,22 @@ body
       line-height: 17px
       padding: 12px 15px 40px 12px
       text-align: center
+    &::before
+      content: ""
+      display: block
+      width: 100%
+      height: 10%
+      background: white
+      position: absolute
+      z-index: -1
+      bottom: 3%
+      left: -7%
+      transform: rotate(-4deg)
+      mask-image: url("../img/chose/pers-bottom-mask.png")
+      mask-repeat: no-repeat
+      mask-size: 100% 100%
+      background: $dark-blue2
+      opacity: .7
 
 
 
@@ -1304,3 +1332,8 @@ body.dark
   background: $dark
   .fav-page
     background: url("../img/bg-dark.jpg") no-repeat 0 0/cover
+  .chose
+    &__pers
+      &::before
+        background: $black
+        opacity: .4
