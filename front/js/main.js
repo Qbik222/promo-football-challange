@@ -93,7 +93,6 @@ function monitorVisibility(selector, animation, delay) {
     observer.observe(element);
 }
 
-// Виклик функції
 monitorVisibility('.notify__pers', "showZeus", 0);
 monitorVisibility('.notify__pers-buble', "showZeusBuble", 1200);
 monitorVisibility('.chose__pers-buble', "showZeusBuble", 0);
@@ -140,7 +139,8 @@ const menuBtn = document.querySelector(".menu-btn"),
     easyBtn = document.querySelector(".easy"),
     mediumBtn = document.querySelector(".medium"),
     hightBtn = document.querySelector(".hight"),
-    noStateBtn = document.querySelector(".not-join")
+    noStateBtn = document.querySelector(".not-join"),
+    darkBtn = document.querySelector(".dark")
 
 function changeStatePage (btn, state){
     btn.addEventListener("click", () =>{
@@ -155,4 +155,13 @@ function changeStatePage (btn, state){
 changeStatePage(easyBtn, "_easy")
 changeStatePage(mediumBtn, "_medium")
 changeStatePage(hightBtn, "_hight")
+
+menuBtn.addEventListener("click", () =>{
+    menu.classList.toggle("_hidden")
+})
+
+darkBtn.addEventListener("click", () =>{
+    document.body.classList.toggle("dark")
+})
+
 // changeStatePage(noStateBtn, false)
