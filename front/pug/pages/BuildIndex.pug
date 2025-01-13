@@ -11,9 +11,9 @@ button.menu-btn menu
             .welcome__title(data-translate="welcomeTitle") акція
             .welcome__subtitle(data-translate="welcomeSubtitle") Футбольний <br> челендж
             .welcome__text(data-translate="welcomeText") Випробуй себе <br> та змагайся за бонус*
-            a(href="#").welcome__btn.btn.part-btn #[span.btn-txt(data-translate="partBtn") взяти участь]
-            //a(href="#").welcome__btn.btn.btn-join(data-translate="mainBtn") до гри
-            //a(href="#").welcome__btn.btn.unauth-msg(data-translate="signBtn") авторизуйся
+            a(href="#").welcome__btn.btn.part-btn.hide #[span.btn-txt(data-translate="partBtn") взяти участь]
+            a(href="#").welcome__btn.btn.btn-join.hide #[span.btn-txt(data-translate="mainBtn") до гри]
+            a(href="#").welcome__btn.btn.unauth-msg.hide #[span.btn-txt(data-translate="signBtn") авторизуватися]
             .welcome__bottom-text(data-translate="welcomeBottom").
                 *Під бонусом  розуміється можливість отримати приз
                 у вигляді бонусної пропозиції «Страховка Ставки», в рамках
@@ -75,7 +75,6 @@ button.menu-btn menu
                                 .welcome__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
                                 .welcome__card-bonus(data-translate="cardBonusHight") до 6000 ₴
                                 .welcome__card-minbet(data-translate="cardMinbetHight") Мінімальна ставка: від 600 ₴
-
                 .welcome__open-right
                     picture
                         source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/welcome/zeus-mob.png")
@@ -118,18 +117,24 @@ button.menu-btn menu
                     .chose__card-bonus(data-translate="cardBonusEasy") до 2 500 ₴
                     .chose__card-minbet(data-translate="cardMinbetEasy") Мінімальна ставка: від 150 ₴
                     .chose__card-btn.btn #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="cardBtnEasy") вибрати новачок]
+                    a(href="#").chose__card-btn.btn.unauth-msg.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="signBtn") авторизуватися]
+                    a(href="#").chose__card-btn.btn.part-btn.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="partBtn") взяти участь]
                 .chose__card._medium.card
                     .chose__card-title(data-translate="cardTitleMedium") на досвіді
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
                     .chose__card-bonus(data-translate="cardBonusMedium") до 3000 ₴
                     .chose__card-minbet(data-translate="cardMinbetMedium") Мінімальна ставка: від 300 ₴
                     .chose__card-btn.btn #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="cardBtnMedium") вибрати на досвіді]
+                    a(href="#").chose__card-btn.btn.unauth-msg.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="signBtn") авторизуватися]
+                    a(href="#").chose__card-btn.btn.part-btn.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="partBtn") взяти участь]
                 .chose__card._hight.card
                     .chose__card-title(data-translate="cardTitleHight") божевільний
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
                     .chose__card-bonus(data-translate="cardBonusHight") до 6000 ₴
                     .chose__card-minbet(data-translate="cardMinbetHight") Мінімальна ставка: від 600 ₴
                     .chose__card-btn.btn #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="cardBtnHight") вибрати божевільний]
+                    a(href="#").chose__card-btn.btn.unauth-msg.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="signBtn") авторизуватися]
+                    a(href="#").chose__card-btn.btn.part-btn.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="partBtn") взяти участь]
     .result
         .result__text.
             3 21.01 по 30.01.2025 роби від 3-х до 10 виграшних ставок
@@ -228,7 +233,9 @@ button.menu-btn menu
                         .result__bets-status
                         .result__bets-icon
                             .result__bets-you(data-translate="you") ти
-                a(href="#").result__btn.btn.btn-join #[span.btn-txt(data-translate="mainBtn") до гри]
+                //a(href="#").result__btn.btn.part-btn.hide #[span.btn-txt(data-translate="partBtn") взяти участь]
+                a(href="#").result__btn.btn.btn-join.hide #[span.btn-txt(data-translate="mainBtn") до гри]
+                a(href="#").result__btn.btn.unauth-msg.hide #[span.btn-txt(data-translate="signBtn") авторизуватися]
             .result__last-upd #[span(data-translate='resultUpd') Твоя шкала оновилась ] 21.01 о 16:30
         .drop
             details.dropdown

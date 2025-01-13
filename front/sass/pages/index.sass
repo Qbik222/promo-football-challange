@@ -44,7 +44,7 @@ body
     max-width: 100%
     height: auto
 
-._hidden
+.hide
   display: none !important
 
 .info-icon
@@ -306,7 +306,7 @@ body
   &__left
     max-width: 450px
     margin-top: auto
-    z-index: 1
+    z-index: 2
   &__title
     display: inline-block
     background: $magenta
@@ -1098,6 +1098,8 @@ details summary::-webkit-details-marker
         font-size: 20px
         line-height: 28px
         padding: 2px 15px 5px 10px
+    &:hover
+      cursor: pointer
     &._easy
       background: url("../img/chose/card-easy-bg.png") no-repeat 50% 0/contain
     &._medium
