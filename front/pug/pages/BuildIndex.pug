@@ -136,7 +136,7 @@ button.menu-btn menu
             (Ординар) поспіль на футбольні події у розділі «Спорт» та «LIVE» і отримай бонус «Страховка Ставки».
         .drop
             details.dropdown
-                summary(data-translate="detailsBtn") Офіційні правила
+                summary(data-translate="detailsBtn") Деталі
                 .drop-txt
                     .drop-txt-list(data-translate="details")
                         strong 1. Як взяти участь?
@@ -232,23 +232,17 @@ button.menu-btn menu
             .result__last-upd #[span(data-translate='resultUpd') Твоя шкала оновилась ] 21.01 о 16:30
         .drop
             details.dropdown
-                summary(data-translate="lastBetBtn") Офіційні правила
+                summary(data-translate="mySpins") Історія зарахованих ставок
                 .drop-txt
-                    .drop-txt-list(data-translate="lastBet")
-                        strong 1. Як взяти участь?
-                        p Авторизуйся на акційній сторінці, натиснувши кнопку «Авторизуйся», або зареєструйся як користувач. Натисни кнопку «Взяти участь» на сторінці Акції.
-                        strong 2. Набір балів
-                        p З 14.06.2024 до 14.07.2024 роби виграшні ставки на спортивні події в рамках Євро 2024 у розділах «Спорт» та «LIVE» заробляй бали в загальну турнірну таблицю.
-                        p Ставки на спортивні події повинні бути від 200 грн, розраховані з результатом «Виграш» та з коефіцієнтом від 1.5 (ординар), або від 3.5 (експрес від 3 подій), без використання «CashOut» та «Повернення ставки».
-                        strong 3.Вгадай точний рахунок топ-матчів етапу. Вгадай точний рахунок запропонованих топ-матчів та помнож свої бали в турнірній таблиці.
-                        p За 1 вгаданий рахунок - бали помножуються на х2.
-                        p За 2 вгаданих рахунки - бали помножуються на х3.
-                        p За 3 вгаданих ранунки- бали помножуються на х5
-                        strong 4. Отримуй бали та можливість виграти призи.
-                        p Чим більше балів, тим більше шансів здобути приз.
-                        p Бали нараховуватимуться та відображатимуться в Турнірній таблиці.
-                        p Після завершення кожного окремого періоду, переможці матимуть право отримати приз згідно із зайнятим призовим місцем.
-
+                    .drop-txt-list.my-spins
+                        .spins-row
+                            .spins-row-head
+                                .content-date(data-translate="mySpinsDate") Дата
+                                .content-prize(data-translate="mySpinsPrize") Ставка
+                            .spins-row-item #[span.content-date 18.09] #[span.content-prize Виграшна ставка ]
+                            .spins-row-item #[span.content-date 18.09] #[span.content-prize Програшна ставка ]
+                            .spins-row-item #[span.content-date 18.09] #[span.content-prize Виграшна ставка ]
+                        .no-spins.hide(data-translate="noSpins")
     .notify
         .notify__pers._notify
             .notify__pers-buble(data-translate="choseBuble") #[span.notify__info.info-icon ] Пам'ятай: в тебе одне право на помилку

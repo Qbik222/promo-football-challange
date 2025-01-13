@@ -1010,6 +1010,49 @@ details summary::-webkit-details-marker
       display: flex
       flex-direction: column
       gap: 15px
+      &.my-spins
+        display: flex
+        .no-spins
+          display: block
+          color: $white
+          text-align: center
+          font-family: $font-suisse-intl-reg
+          font-size: 16px
+          line-height: 26px
+        .spins-row
+          display: flex
+          flex-direction: column
+          justify-content: space-between
+          width: 100%
+          gap: 2px
+          &-item, &-head
+            display: flex
+            justify-content: flex-start
+            padding: 7px 20px
+            //border-radius: 13px
+          &-head
+            background: transparent
+            opacity: .2
+          &-item
+            background: rgba($white, .05)
+          .content-date, .content-prize
+            color: $white
+            font-family: $font-suisse-intl-reg
+            font-size: 16px
+            line-height: 26px
+            @media screen and (max-width: 337px)
+              font-size: 13px
+              line-height: 20px
+          .content-date
+            margin-right: 50px
+            min-width: 80px
+            max-width: fit-content
+            @media screen and (max-width: 600px)
+              margin-right: 20px
+            @media screen and (max-width: 337px)
+              margin-right: 10px
+          .content-prize
+            margin-left: auto
       p, strong
         font-size: 16px
         line-height: 26px
