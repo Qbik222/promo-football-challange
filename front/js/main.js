@@ -406,6 +406,12 @@
         })
     }
 
+    document.querySelector('.welcome__scroll').addEventListener('click', function () {
+        const targetBlock = document.querySelector('.chose');
+        targetBlock.scrollIntoView({ behavior: 'smooth' });
+    });
+
+
     //for test
     const menuBtn = document.querySelector(".menu-btn"),
         menu = document.querySelector(".menu-test"),

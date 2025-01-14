@@ -58,6 +58,7 @@ body
 
 .btn
   min-width: 380px
+  width: fit-content
   display: inline-flex
   align-items: center
   justify-content: center
@@ -112,6 +113,8 @@ body
   overflow: hidden
   &._easy, &._medium, &._hight
     .welcome
+      &__scroll
+        display: none
       &__timer
         bottom: 15px
         right: 240px
@@ -122,6 +125,9 @@ body
         display: flex
       &__btn
         animation: 2.3s showBtnDelay ease-in-out
+        margin-bottom: 50px
+      &__bottom-txt
+        margin-top: auto
       &__card
         padding-bottom: 11px
         &-title
@@ -302,13 +308,113 @@ body
     background-size: 100% 568px
   @media screen and (max-width: 374px)
     background-size: 100% 490px
+  &__scroll
+    width: 180px
+    height: 27px
+    display: flex
+    align-items: center
+    margin: auto auto 30px 103px
+    z-index: 3
+    position: relative
+    transition: transform .4s ease-in-out
+    &:hover
+      cursor: pointer
+      transform: scale(1.02)
+    &-left
+      font-family: $font-suisse-intl-bold
+      font-size: 12px
+      line-height: 22px
+      text-transform: uppercase
+      position: relative
+      display: flex
+      z-index: 2
+      max-width: 150px
+      width: 100%
+      justify-content: center
+      align-items: center
+      height: 100%
+      &-text, &-icon
+        z-index: 2
+      &-icon
+        width: 20px
+        height: 20px
+        position: absolute
+        left: 0
+        top: 50%
+        transform: translate(-50%, -50%)
+        background: url("../img/welcome/welcome-scroll-icon.png") no-repeat 0 0/contain
+      &::before, &::after
+        content: ""
+        display: block
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%,-50%)
+        clip-path: polygon(1.32% 3.45%, 98.68% 6.61%, 97.35% 96.55%, 3.04% 93.44%, 1.32% 3.45%)
+      &::before
+        background: $white
+        z-index: 1
+        width: 100%
+        height: 100%
+      &::after
+        z-index: 0
+        background: $black
+        width: 102%
+        height: 115%
+    &-right
+      width: 100%
+      height: 100%
+      max-width: 30px
+      position: relative
+      right: 2px
+      //background: white
+      &::before, &::after
+        position: absolute
+        left: 50%
+        transform: translate(-50%, -50%)
+        content: ""
+        display: block
+        clip-path: polygon(13.95% 3.57%, 97.37% 3.57%, 97.37% 96.43%, 2.26% 96.43%, 7.89% 3.57%)
+      &::before
+        width: 100%
+        height: 97%
+        background: $white
+        z-index: 1
+        top: 51.1%
+      &::after
+        width: 111%
+        height: 111%
+        background: $black
+        z-index: 0
+        top: 52%
+      &-arrow, &-cursor
+        position: absolute
+        top: 50%
+        z-index: 2
+      &-arrow
+        width: 9px
+        height: 15px
+        background: url("../img/welcome/welcome-swipe.png") no-repeat 0 0/contain
+        left: 2px
+        transform: translate(0, -57%)
+        animation: swipeArrow 1.6s ease-in-out infinite
+      &-cursor
+        background: url("../img/welcome/welcome-cursor.png") no-repeat 0 0/contain
+        width: 23px
+        height: 24px
+        right: 0
+        transform: translate(0, -50%) rotate(-44.37deg)
 
   &__left
     max-width: 450px
     margin-top: auto
     z-index: 2
+    height: 517px
+    display: flex
+    flex-direction: column
   &__title
     display: inline-block
+    width: fit-content
     background: $magenta
     color: $dark-blue
     font-family: $font-suisse-intl-bold
@@ -524,14 +630,15 @@ body
     display: none
 
   &__btn
-    margin-bottom: 50px
     animation: showBtn 1.5s ease-in-out
+    margin-bottom: -10px
   &__bottom-text
     color: $white
     font-size: 10px
     line-height: 16px
     font-family: $font-suisse-intl-reg
     opacity: .9
+    align-self: flex-end
 
 .chose
   width: 100%
@@ -1211,6 +1318,12 @@ details summary::-webkit-details-marker
     line-height: 26px
     & > *
       font-family: $font-suisse-intl-reg
+
+@keyframes swipeArrow
+  0%
+    transform: translate(0, -57%)
+  50%
+    transform: translate(0, -43%)
 
 
 @keyframes showBtn
