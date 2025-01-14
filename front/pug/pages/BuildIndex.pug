@@ -64,19 +64,19 @@ button.menu-btn menu
                                 .welcome__card-selected(data-translate="cardSelected") Вітаємо, ти обрав рівень
                                 .welcome__card-title(data-translate="cardTitleEasy") новачок
                                 .welcome__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
-                                .welcome__card-bonus(data-translate="cardBonusEasy") до 2 500 ₴
+                                .welcome__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet-easy 2 500 ₴]
                                 .welcome__card-minbet(data-translate="cardMinbetEasy") Мінімальна ставка: від 150 ₴
                             .welcome__card._medium.card
                                 .welcome__card-selected(data-translate="cardSelected") Вітаємо, ти обрав рівень
                                 .welcome__card-title(data-translate="cardTitleMedium") на досвіді
                                 .welcome__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
-                                .welcome__card-bonus(data-translate="cardBonusMedium") до 3000 ₴
+                                .welcome__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet-medium 3000 ₴]
                                 .welcome__card-minbet(data-translate="cardMinbetMedium") Мінімальна ставка: від 300 ₴
                             .welcome__card._hight.card
                                 .welcome__card-selected(data-translate="cardSelected") Вітаємо, ти обрав рівень
                                 .welcome__card-title(data-translate="cardTitleHight") божевільний
                                 .welcome__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
-                                .welcome__card-bonus(data-translate="cardBonusHight") до 6000 ₴
+                                .welcome__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet-hight 6000 ₴]
                                 .welcome__card-minbet(data-translate="cardMinbetHight") Мінімальна ставка: від 600 ₴
                 .welcome__open-right
                     picture
@@ -117,7 +117,7 @@ button.menu-btn menu
                 .chose__card._easy.card
                     .chose__card-title(data-translate="cardTitleEasy") новачок
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
-                    .chose__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet 2 500 ₴]
+                    .chose__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet-easy 2 500 ₴]
                     .chose__card-minbet(data-translate="cardMinbetEasy") Мінімальна ставка: від 150 ₴
                     .chose__card-btn.btn #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="cardBtnEasy") вибрати новачок]
                     a(href="#").chose__card-btn.btn.unauth-msg.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="signBtn") авторизуватися]
@@ -125,7 +125,7 @@ button.menu-btn menu
                 .chose__card._medium.card
                     .chose__card-title(data-translate="cardTitleMedium") на досвіді
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
-                    .chose__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet 3000 ₴]
+                    .chose__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet-medium 3000 ₴]
                     .chose__card-minbet(data-translate="cardMinbetMedium") Мінімальна ставка: від 300 ₴
                     .chose__card-btn.btn #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="cardBtnMedium") вибрати на досвіді]
                     a(href="#").chose__card-btn.btn.unauth-msg.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="signBtn") авторизуватися]
@@ -133,7 +133,7 @@ button.menu-btn menu
                 .chose__card._hight.card
                     .chose__card-title(data-translate="cardTitleHight") божевільний
                     .chose__card-text(data-translate="cardText") Бонус <br> Страховка Ставки
-                    .chose__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet 6000 ₴]
+                    .chose__card-bonus #[span(data-translate="cardBonus") до] #[span.save-bet-hight 6000 ₴]
                     .chose__card-minbet(data-translate="cardMinbetHight") Мінімальна ставка: від 600 ₴
                     .chose__card-btn.btn #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="cardBtnHight") вибрати божевільний]
                     a(href="#").chose__card-btn.btn.unauth-msg.hide #[span.chose__card-info.info-icon] #[span.btn-txt(data-translate="signBtn") авторизуватися]

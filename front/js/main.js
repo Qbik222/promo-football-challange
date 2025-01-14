@@ -241,8 +241,10 @@
 
 
         cards.forEach(card =>{
-            card.addEventListener("click", () =>{
-                // console.log(card)
+            card.addEventListener("click", (e) =>{
+                if(e.target.classList.contains("info-icon")){
+                    return
+                }
                 difficults.forEach(item =>{
                     if(card.classList.contains(item)){
                         toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", item, userStatus)
@@ -410,6 +412,33 @@
         const targetBlock = document.querySelector('.chose');
         targetBlock.scrollIntoView({ behavior: 'smooth' });
     });
+
+
+    let startBonusEasy = 300,
+        startBonusMedium = 700,
+        startBonusHight = 1500,
+        streakBonusEasy = 200,
+        streakBonusMedium = 200,
+        streakBonusHight = 500,
+        streak = 5
+
+    const saveBetEasy = saveBetCalc(startBonusEasy, streak, streakBonusEasy, false),
+          saveBetMedium = saveBetCalc(startBonusMedium, streak, streakBonusMedium, false),
+          saveBetHeight = saveBetCalc(startBonusHight, streak, streakBonusHight, true)
+
+    function saveBetCalc(startBonus, streak, streakBonus, difficult) {
+        for (let i = 4; i <= streak; i++) {
+            if(!difficult){
+                i === 10 ? startBonus += 1000 : startBonus += streakBonus
+            }else{
+                i >= 9 ? startBonus += 1000 : startBonus += streakBonus
+            }
+
+        }
+        return startBonus;
+    }
+
+    console.log(saveBetEasy, saveBetMedium, saveBetHeight)
 
 
     //for test
