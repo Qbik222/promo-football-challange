@@ -32,7 +32,6 @@
         translateState = true;
     let userId;
     userId = Number(sessionStorage.getItem("userId"));
-
     // userId = 100300268
 
 
