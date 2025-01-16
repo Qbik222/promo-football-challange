@@ -1298,6 +1298,7 @@ details summary::-webkit-details-marker
       margin: 0 auto
       padding: 10px 10px 11px 11px
       min-width: 185px
+      text-align: center
       clip-path: polygon(2.54% 10.61%, 0.28% 90.91%, 100% 100%, 98.59% 1.52%, 2.54% 10.61%)
     &-info
       position: absolute
@@ -1545,6 +1546,21 @@ body.dark
 
 // en styles
 .fav-page.en
+  &._easy, &._medium, &._hight
+    .welcome
+      &__card
+        &-selected
+          padding: 7px 10px 8px 10px
+          font-size: 11px
+          @media screen and (max-width: 1050px)
+            font-size: 7px
+            padding: 5px 6px 5px 6px
+  &._hight
+    .welcome
+      &__card
+        &-title
+          @media screen and (max-width: 1050px)
+            padding-left: 8px
   .welcome
     &__scroll
       &-left
@@ -1558,7 +1574,7 @@ body.dark
         padding: 15px 0 20px 11px
         @media screen and (max-width: 1050px)
           font-size: 27px
-          padding: 8px 0 27px 11px
+          padding: 8px 0 14px 11px
   .notify
     &__pers
       &-buble

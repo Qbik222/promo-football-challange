@@ -369,7 +369,7 @@
 
 
     function toggleBlocks (hideBlock, hideClass, showBlock, showClass, state, userStatus){
-        mainPage.classList.add(state)
+        mainPage.classList.add(state, locale)
         hideBlock.classList.add(hideClass)
         let drops = showBlock.querySelectorAll(".drop")
         drops.forEach(item =>{
