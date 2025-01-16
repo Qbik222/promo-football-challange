@@ -118,7 +118,7 @@ body
       &__scroll
         display: none
       &__timer
-        bottom: 15px
+        bottom: 18px
         right: 240px
         animation: 2.6s showBtnDelay ease-in-out
       &__lock
@@ -692,9 +692,9 @@ body
       background: url("../img/chose/bubble.png") no-repeat 0 0/contain
       color: $dark-blue2
       font-family: $font-suisse-intl-bold
-      font-size: 16px
-      line-height: 17px
-      padding: 12px 15px 40px 12px
+      font-size: 14px
+      line-height: 16px
+      padding: 14px 12px 40px 12px
       text-align: center
     &::before
       content: ""
@@ -726,6 +726,22 @@ body
   padding: 20px 0 60px 0
   height: 600px
   opacity: 0
+  .drop
+    &._easy
+      .drop-txt-list
+        display: none
+        &._easy
+          display: flex
+    &._medium
+      .drop-txt-list
+        display: none
+        &._medium
+          display: flex
+    &._hight
+      .drop-txt-list
+        display: none
+        &._hight
+          display: flex
   &__text
     color: $white
     max-width: 830px
@@ -958,10 +974,12 @@ body
       background: url("../img/result/card-medium.png") no-repeat 0 0/contain
     &._hight
       background: url("../img/result/card-hight.png") no-repeat 0 0/contain
+      .result__top-title
+        padding: 2px 23px 10px
     &-title
       position: absolute
       left: -15px
-      top: -30px
+      top: -32px
       min-width: 155px
       padding: 2px 26px 10px
       color: $magenta
@@ -974,6 +992,7 @@ body
       color: $dark-blue2
       font-size: 12px
       font-family: $font-suisse-intl-reg
+      z-index: 2
     &-bonus
       color: $dark-blue2
       font-size: 16px
@@ -1105,7 +1124,7 @@ details summary::-webkit-details-marker
     background: rgba($black, .3)
     margin-top: 10px
     max-height: 350px
-    overflow-y: scroll
+    overflow-y: auto
     border: 2px solid $white
     scrollbar-width: auto
     &::-webkit-scrollbar-thumb
@@ -1156,6 +1175,7 @@ details summary::-webkit-details-marker
             margin-right: 50px
             min-width: 80px
             max-width: fit-content
+            padding: 0
             @media screen and (max-width: 600px)
               margin-right: 20px
             @media screen and (max-width: 337px)
@@ -1170,7 +1190,31 @@ details summary::-webkit-details-marker
         @media screen and (max-width: 600px)
           font-size: 14px
           line-height: 22px
+      span
+        font-family: $font-suisse-intl-reg
+        display: block
+        padding-left: 15px
+      tr,td
+        font-family: $font-suisse-intl-reg
+      td
+        padding-left: 5px
 
+
+.retreat1
+  padding-left: 30px
+  strong
+    font-family: $font-suisse-intl-bold
+    color: $white
+  .circle
+    padding-left: 35px
+    &:before
+      content: ''
+      width: 5px
+      height: 5px
+      background: $white
+      border-radius: 50%
+      display: inline-block
+      margin: 0 4px 2px 0
 
 // cards
 .chose, .welcome
@@ -1243,7 +1287,7 @@ details summary::-webkit-details-marker
       text-transform: uppercase
       font-family: $font-suisse-intl-bold
       text-align: center
-      margin-bottom: 12px
+      margin-bottom: 8px
     &-minbet
       background: $dark-blue2
       color: $white
@@ -1252,7 +1296,8 @@ details summary::-webkit-details-marker
       display: inline-block
       width: fit-content
       margin: 0 auto
-      padding: 8px 4px 9px 6px
+      padding: 10px 10px 11px 11px
+      min-width: 185px
       clip-path: polygon(2.54% 10.61%, 0.28% 90.91%, 100% 100%, 98.59% 1.52%, 2.54% 10.61%)
     &-info
       position: absolute
@@ -1497,3 +1542,33 @@ body.dark
       &::before
         background: $black
         opacity: .4
+
+// en styles
+.fav-page.en
+  .welcome
+    &__scroll
+      &-left
+        font-size: 11px
+  .chose, .welcome
+    &__card
+      &-btn
+        min-width: 180px
+      &-title
+        font-size: 42px
+        padding: 15px 0 20px 11px
+        @media screen and (max-width: 1050px)
+          font-size: 27px
+          padding: 8px 0 27px 11px
+  .notify
+    &__pers
+      &-buble
+        padding: 9px 30px 42px 22px
+        font-size: 15px
+        line-height: 16px
+  .result
+    &__pers
+     &-buble
+       padding: 21px 27px 40px 27px
+    &__bets
+      &-you
+        font-size: 23px

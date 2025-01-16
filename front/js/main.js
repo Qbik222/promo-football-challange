@@ -1,5 +1,5 @@
 (function () {
-    const apiURL = 'https://fav-prom.com/api_wheel_2025'
+    const apiURL = 'https://fav-prom.com/api_football_challange'
 
     const mainPage = document.querySelector(".fav-page"),
         popupsWrap = document.querySelector(".popup"),
@@ -16,8 +16,10 @@
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
 
+    const difficults = ["_easy", "_medium", "_hight"]
 
-    let locale = 'uk';
+    let locale = sessionStorage.getItem("locale") ? sessionStorage.getItem("locale") : "uk"
+    
 
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
@@ -27,9 +29,10 @@
 
     let i18nData = {};
     const debug = true,
-        translateState = false;
+        translateState = true;
     let userId;
-    userId = 7777777;
+    userId = Number(sessionStorage.getItem("userId"));
+
     // userId = 100300268
 
 
@@ -236,8 +239,8 @@
     loadTranslations()
         .then(init);
 
+
     function setChoseCards(cards){
-        const difficults = ["_easy", "_medium", "_hight"]
 
 
         cards.forEach(card =>{
@@ -247,7 +250,8 @@
                 }
                 difficults.forEach(item =>{
                     if(card.classList.contains(item)){
-                        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", item, userStatus)
+                        difficult = item
+                        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", difficult, userStatus)
                     }
                 })
 
@@ -367,8 +371,16 @@
     function toggleBlocks (hideBlock, hideClass, showBlock, showClass, state, userStatus){
         mainPage.classList.add(state)
         hideBlock.classList.add(hideClass)
+        let drops = showBlock.querySelectorAll(".drop")
+        drops.forEach(item =>{
+            difficults.forEach(state =>{
+                item.classList.remove(state)
+            })
+        })
+        drops[0].classList.add(state)
         if(!userStatus){
             hideBlock.addEventListener("animationend", () =>{
+
                 showBlock.style.display = "flex"
                 showBlock.style.height = hideBlock.clientHeight
                 hideBlock.classList.add("hide")
@@ -394,10 +406,12 @@
                 if(item.classList.contains("you")){
                     setTimeout(() =>{
                         let you = item.querySelector(".result__bets-you")
-                        let btn = document.querySelector(".result__btn")
+                        let btns = document.querySelectorAll(".result__btn")
                         you.classList.add('showYou')
                         setTimeout(() =>{
-                            btn.classList.add("showBtn")
+                            btns.forEach(btn =>{
+                                btn.classList.add("showBtn")
+                            })
                         }, 200)
                     }, 2700)
                 }
@@ -438,7 +452,7 @@
         return startBonus;
     }
 
-    console.log(saveBetEasy, saveBetMedium, saveBetHeight)
+    // console.log(saveBetEasy, saveBetMedium, saveBetHeight)
 
 
     //for test
@@ -447,8 +461,9 @@
         easyBtn = document.querySelector(".easy"),
         mediumBtn = document.querySelector(".medium"),
         hightBtn = document.querySelector(".hight"),
-        noStateBtn = document.querySelector(".not-join"),
-        darkBtn = document.querySelector(".dark")
+        lngBtn = document.querySelector(".en"),
+        darkBtn = document.querySelector(".dark"),
+        authBtn = document.querySelector(".auth")
 
     function changeStatePage (btn, state){
         btn.addEventListener("click", () =>{
@@ -459,6 +474,24 @@
         })
     }
 
+    lngBtn.addEventListener("click", () =>{
+        if(locale === "uk"){
+            sessionStorage.setItem("locale", "en")
+            window.location.reload()
+            return
+        }
+        if(locale === "en"){
+            sessionStorage.setItem("locale", "uk")
+            window.location.reload()
+            return
+        }
+    })
+
+
+    authBtn.addEventListener("click", () =>{
+        userId ? sessionStorage.removeItem("userId") : sessionStorage.setItem("userId", '100300268')
+        window.location.reload()
+    })
 
     changeStatePage(easyBtn, "_easy")
     changeStatePage(mediumBtn, "_medium")
