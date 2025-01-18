@@ -1084,6 +1084,8 @@ body
       top: 120px
       transform: translate(-50%, 0)
       animation: float 3s ease-in-out infinite
+      picture
+        animation: opacityCup .7s ease-in-out
       &::before
         //content: ""
         display: block
@@ -1428,6 +1430,12 @@ details summary::-webkit-details-marker
   0%, 100%
     opacity: .6
   50%
+    opacity: 1
+
+@keyframes opacityCup
+  0%
+    opacity: .6
+  100%
     opacity: 1
 
 @keyframes showCenterWelcome
