@@ -435,7 +435,8 @@ body
     font-size: 29px
     line-height: 29px
     text-transform: uppercase
-    padding: 5px 6px 4px 6px
+    //padding: 5px 6px 4px 6px
+    padding: 7px 6px 4px 6px
     margin-bottom: 22px
   &__subtitle
     color: $magenta
@@ -738,6 +739,7 @@ body
   padding: 20px 0 60px 0
   height: 600px
   opacity: 0
+  z-index: 2
   .drop
     &._easy
       .drop-txt-list
@@ -1596,10 +1598,23 @@ body.dark
         line-height: 16px
   .result
     &__top
+      &._medium
+        .result__top-title
+          font-size: 29px
+          min-height: 60px
+          padding: 8px 19px 10px
+          top: -37px
+      &._hight
+        .result__top-title
+          font-size: 29px
+          min-height: 60px
+          padding: 4px 19px 10px
+          top: -31px
       &-title
-        font-size: 39px
-        top: -52px
-        padding: 7px 5px 20px 17px
+        font-size: 29px
+        min-height: 60px
+        top: -36px
+        padding: 8px 31px 14px
         @media screen and (max-width: 1050px)
           top: -33px
           font-size: 26px
