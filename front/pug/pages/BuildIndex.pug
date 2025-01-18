@@ -295,19 +295,21 @@ button.menu-btn menu
     .notify
         .notify__pers._notify
             .notify__pers-buble #[span.notify__info.info-icon ] #[span(data-translate="notifyBuble") Пам'ятай: в тебе одне право на помилку]
-            picture.notify__pers-img
-                source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/notify/zeus-mob.png")
-                source(media="(max-width: 950px) and (orientation: landscape) and (max-height: 450px)" srcset="./img/notify/zeus.png")
-                source(media="(min-width: 601px) and (max-width: 1050px) and (orientation: portrait)" srcset="./img/notify/zeus.png")
-                source(media="(min-width: 601px) and (orientation: landscape)" srcset="./img/notify/zeus.png")
-                img(src="./img/notify/zeus.png" alt="Favbet")
+            .notify__pers-img
+                picture
+                    source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/notify/zeus-mob.png")
+                    source(media="(max-width: 950px) and (orientation: landscape) and (max-height: 450px)" srcset="./img/notify/zeus.png")
+                    source(media="(min-width: 601px) and (max-width: 1050px) and (orientation: portrait)" srcset="./img/notify/zeus.png")
+                    source(media="(min-width: 601px) and (orientation: landscape)" srcset="./img/notify/zeus.png")
+                    img(src="./img/notify/zeus.png" alt="Favbet")
         .notify__cup
-            picture.notify__cup-img
-                source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/notify/cup-mob.png")
-                source(media="(max-width: 950px) and (orientation: landscape) and (max-height: 450px)" srcset="./img/notify/cup.png")
-                source(media="(min-width: 601px) and (max-width: 1050px) and (orientation: portrait)" srcset="./img/notify/cup.png")
-                source(media="(min-width: 601px) and (orientation: landscape)" srcset="./img/notify/cup.png")
-                img(src="./img/notify/cup.png" alt="Favbet")
+            .notify__cup-img
+                picture
+                    source(media="(max-width: 600px) and (orientation: portrait)" srcset="./img/notify/cup-mob.png")
+                    source(media="(max-width: 950px) and (orientation: landscape) and (max-height: 450px)" srcset="./img/notify/cup.png")
+                    source(media="(min-width: 601px) and (max-width: 1050px) and (orientation: portrait)" srcset="./img/notify/cup.png")
+                    source(media="(min-width: 601px) and (orientation: landscape)" srcset="./img/notify/cup.png")
+                    img(src="./img/notify/cup.png" alt="Favbet")
     .drop
         details.dropdown
             summary(data-translate="rulseBtn") Офіційні правила
