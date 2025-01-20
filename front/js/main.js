@@ -10,58 +10,38 @@
         unauthMsgs = document.querySelectorAll('.unauth-msg'),
         participateBtns = document.querySelectorAll('.part-btn'),
         redirectBtns = document.querySelectorAll('.btn-join'),
-        choseBtns = document.querySelectorAll(".chose__card-btn"),
         choseCards = document.querySelectorAll(".chose__card")
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
 
-    const difficults = ["_easy", "_medium", "_hight"]
+    const difficults = ["_easy", "_medium", "_hight"];
+    const modeMap = {"novice": "_easy", "experienced": "_medium", "insane": "_hight", "_easy": "novice", "_medium": "experienced", "_hight": "insane"};
 
     let locale = sessionStorage.getItem("locale") ? sessionStorage.getItem("locale") : "uk"
-    
+
 
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
 
-    let userStatus = false,
-        difficult = "_easy"
-
     let i18nData = {};
-    const debug = true,
-        translateState = true;
+    const translateState = true;
     let userId;
-    userId = Number(sessionStorage.getItem("userId"));
-    // userId = 100300268
+    // userId = 7777777
 
-
-    const setPageState = () => {
-       if(userStatus){
-           toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", difficult, userStatus)
-       }
-    }
-
-
-
-    const InitPage = () => {
-        setPageState()
-    }
-    function setupPage() {
-        InitPage();
-    }
     function init() {
         if (window.store) {
             var state = window.store.getState();
             userId = state.auth.isAuthorized && state.auth.id || '';
-            checkUserAuth().then(setupPage);
+            checkUserAuth();
         } else {
-            checkUserAuth().then(setupPage);
+            checkUserAuth();
             let c = 0;
             var i = setInterval(function () {
                 if (c < 50) {
                     if (!!window.g_user_id) {
                         userId = window.g_user_id;
-                        checkUserAuth().then(setupPage);
+                        checkUserAuth();
                         clearInterval(i);
                     }
                 } else {
@@ -69,28 +49,22 @@
                 }
             }, 200);
         }
-
-        participateBtns.forEach((authBtn, i) => {
-            authBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                participate();
-            });
-        });
     }
 
-    function participate() {
-        if (!userId) {
+    function participate(mode) {
+        if (!userId || !mode) {
             return;
         }
 
-        const params = {userid: userId};
+        const params = {userid: userId, mode};
         request('/user', {
             method: 'POST',
             body: JSON.stringify(params)
         }).then(res => {
             participateBtns.forEach(item => item.classList.add('hide'));
             redirectBtns.forEach(item => item.classList.remove('hide'));
-            setupPage();
+            const css = modeMap[mode];
+            toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", css, true);
         });
     }
 
@@ -117,7 +91,7 @@
                     elem.removeAttribute('data-translate');
                 })
             }else{
-               console.log("translation work!")
+                console.log("translation work!")
             }
         }
         if (locale === 'en') {
@@ -126,53 +100,114 @@
         refreshLocalizedClass();
     }
 
-    function translateKey(key) {
+    function translateKey(key, defaultVal) {
         if (!key) {
             return;
         }
-        return i18nData[key] || '*----NEED TO BE TRANSLATED----*   key:  ' + key;
+        return i18nData[key] || defaultVal || '*----NEED TO BE TRANSLATED----*   key:  ' + key;
     }
 
-    function displayUserSpins(spins) {
+    function displayUserInfo(userInfo) {
+        const bets = userInfo.bets.slice(0, 10);
+        // let bets = [{betDate: new Date(), status: 'undefined'}]
+        refreshBets(bets);
+        displayBetsHistory(bets);
+        refreshLastUpdatedDate(userInfo);
+    }
+
+    function refreshLastUpdatedDate(userInfo) {
+        const dateContainer = document.querySelector('.result__last-upd');
+        const span = document.getElementById('lastUpd');
+        if (userInfo.lastUpdate) {
+            span.innerHTML = formatDate(userInfo.lastUpdate);
+            dateContainer.classList.remove('hide');
+        } else {
+            dateContainer.classList.add('hide');
+        }
+    }
+
+    function formatDate(date) {
+        const localDate = new Date(date);
+        const day = String(localDate.getDate()).padStart(2, '0');
+        const month = String(localDate.getMonth() + 1).padStart(2, '0');
+        const hours = String(localDate.getHours()).padStart(2, '0');
+        const minutes = String(localDate.getMinutes()).padStart(2, '0');
+        return `${day}.${month} ${hours}:${minutes}`;
+    }
+
+    function refreshBets(bets) {
+        const divs = document.querySelectorAll('.result__bets-item');
+        for (let i = 0; i < bets.length; i++) {
+            const element = divs[i];
+            const bet = bets[i];
+            element.classList.remove('you');
+            element.classList.remove('_done');
+            element.classList.remove('_fail');
+            let status = '_fail';
+            if (bet.status === 'win') {
+                status = '_done';
+            } else if (!bet.status || bet.status === 'undefined') {
+                status = 'you';
+            }
+            element.classList.add(status);
+        }
+    }
+
+    function displayBetsHistory(bets) {
         const spinItem = document.querySelector('.spins-row');
         const noSpinItem = document.querySelector('.no-spins');
 
-        // console.log(spins)
-
-        if (!spins || spins.length === 0) {
+        if (!bets || bets.length === 0) {
             spinItem.classList.add('hide');
             noSpinItem.classList.remove('hide');
             return;
         }
 
-        // const spinsContainer = document.querySelector('.spins-row');
         spinItem.innerHTML =
             `
        <div class="spins-row-head">
             <div class="content-date" data-translate="mySpinsDate"></div>
             <div class="content-prize" data-translate="mySpinsPrize"></div>
         </div>
-        `
-
+        `;
         spinItem.classList.remove('hide');
         noSpinItem.classList.add('hide');
-        // console.log(noSpinItem)
 
-        spins.forEach(spin => {
-            const spinDate = new Date(spin.date);
+        let upd = 0;
+        bets.forEach(spin => {
+            const spinDate = new Date(spin.betDate);
             const formattedDate = spinDate.toLocaleDateString('uk-UA');
-            const spinName = translateKey(spin.name) || '';
+            const status = resolveStatusTranslation(spin.status);
 
-            const spinElement = document.createElement('div');
-            spinElement.classList.add('spins-row-item');
+            if (status) {
+                const spinElement = document.createElement('div');
+                spinElement.classList.add('spins-row-item');
 
-            spinElement.innerHTML = `
-            <span class="content-date">${formattedDate}</span>
-            <span class="content-prize">${spinName}</span>
-        `;
-
-            spinItem.appendChild(spinElement);
+                spinElement.innerHTML = `
+                    <span class="content-date">${formattedDate}</span>
+                    <span class="content-prize">${status}</span>
+                `;
+                spinItem.appendChild(spinElement);
+                upd++;
+            }
         });
+
+        if (upd === 0) {
+            spinItem.classList.add('hide');
+            noSpinItem.classList.remove('hide');
+        }
+    }
+
+    function resolveStatusTranslation(status) {
+        if (!status || status === 'undefined') {
+            return translateKey('betUndefined');
+        }
+        if (status === 'win') {
+            return translateKey('winBet');
+        }
+        if (status === 'lose') {
+            return translateKey('loseBet');
+        }
     }
 
     function refreshLocalizedClass(element, baseCssClass) {
@@ -204,29 +239,22 @@
             return request(`/favuser/${userId}?nocache=1`)
                 .then(res => {
                     if (res.userid) {
-                        console.log(res.userid)
                         participateBtns.forEach(item => item.classList.add('hide'));
                         redirectBtns.forEach(item => item.classList.remove('hide'));
-                        setChoseCards(choseCards)
-                        if (debug) {
-                            // res.pointsPerDay = 30;
-                            // res.spinAllowed = true;
-                            // res.spinsStreak = 3;
-                            res.spins = [];
-                        }
-                        displayUserSpins(res.spins);
-                    }else{
-                        choseBtns.forEach(item => item.classList.add('hide'));
+
+                        const css = modeMap[res.mode];
+                        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", css, false);
+                        displayUserInfo(res);
+                    } else {
+                        initChooseCards(choseCards);
                         participateBtns.forEach(item => item.classList.remove('hide'));
+                        redirectBtns.forEach(item => item.classList.remove('hide'));
                     }
                 })
         } else {
             // displayUserSpins(0);
             for (let participateBtn of participateBtns) {
                 participateBtn.classList.add('hide');
-            }
-            for (let choseBtn of choseBtns) {
-                choseBtn.classList.add('hide');
             }
             for (const unauthMes of unauthMsgs) {
                 unauthMes.classList.remove('hide');
@@ -238,27 +266,31 @@
     loadTranslations()
         .then(init);
 
-
-    function setChoseCards(cards){
-
+    let inited = false;
+    function initChooseCards(cards){
+        if (inited) {
+            return;
+        }
 
         cards.forEach(card =>{
             card.addEventListener("click", (e) =>{
                 if(e.target.classList.contains("info-icon")){
                     return
                 }
-                difficults.forEach(item =>{
-                    if(card.classList.contains(item)){
-                        difficult = item
-                        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", difficult, userStatus)
+                for (let i = 0; i < difficults.length; i++) {
+                    const item = difficults[i];
+                    if (card.classList.contains(item)) {
+                        const mode = modeMap[item];
+                        participate(mode);
+                        break;
                     }
-                })
-
+                }
             })
-        })
+        });
+        inited = true;
     }
 
-    function setPopup (wrap, popupName, btns, popupItems){
+    function setPopup(wrap, popupName, btns, popupItems){
         let popup = wrap.querySelector(`.${popupName}`)
 
         wrap.addEventListener("click", (e) =>{
@@ -288,7 +320,7 @@
                 })
                 let closeBtn = popup.querySelector(".popup__close")
                 closeBtn.addEventListener("click", () =>{
-                        closePopup()
+                    closePopup()
                 })
             }
         })
@@ -336,7 +368,7 @@
         const intervalId = setInterval(updateTimer, 1000);
     }
 
-    startCountdown('.welcome__timer', '2025-01-31T23:59:59');
+    startCountdown('.welcome__timer', '2025-01-30T23:59:59');
 
     function monitorVisibility(selector, animation, delay) {
         const element = document.querySelector(selector);
@@ -367,7 +399,7 @@
     monitorVisibility('.chose__card._hight', "showCard", 1200);
 
 
-    function toggleBlocks (hideBlock, hideClass, showBlock, showClass, state, userStatus){
+    function toggleBlocks(hideBlock, hideClass, showBlock, showClass, state, animate){
         mainPage.classList.add(state, locale)
         hideBlock.classList.add(hideClass)
         let drops = showBlock.querySelectorAll(".drop")
@@ -377,7 +409,7 @@
             })
         })
         drops[0].classList.add(state)
-        if(!userStatus){
+        if(animate){
             hideBlock.addEventListener("animationend", () =>{
 
                 showBlock.style.display = "flex"
@@ -421,88 +453,8 @@
         })
     }
 
-    document.querySelector('.welcome__scroll').addEventListener('click', function () {
-        const targetBlock = document.querySelector('.chose');
-        targetBlock.scrollIntoView({ behavior: 'smooth' });
-    });
-
-
-    let startBonusEasy = 300,
-        startBonusMedium = 700,
-        startBonusHight = 1500,
-        streakBonusEasy = 200,
-        streakBonusMedium = 200,
-        streakBonusHight = 500,
-        streak = 5
-
-    const saveBetEasy = saveBetCalc(startBonusEasy, streak, streakBonusEasy, false),
-          saveBetMedium = saveBetCalc(startBonusMedium, streak, streakBonusMedium, false),
-          saveBetHeight = saveBetCalc(startBonusHight, streak, streakBonusHight, true)
-
-    function saveBetCalc(startBonus, streak, streakBonus, difficult) {
-        for (let i = 4; i <= streak; i++) {
-            if(!difficult){
-                i === 10 ? startBonus += 1000 : startBonus += streakBonus
-            }else{
-                i >= 9 ? startBonus += 1000 : startBonus += streakBonus
-            }
-
-        }
-        return startBonus;
-    }
-
-    // console.log(saveBetEasy, saveBetMedium, saveBetHeight)
-
-
-    //for test
-    const menuBtn = document.querySelector(".menu-btn"),
-        menu = document.querySelector(".menu-test"),
-        easyBtn = document.querySelector(".easy"),
-        mediumBtn = document.querySelector(".medium"),
-        hightBtn = document.querySelector(".hight"),
-        lngBtn = document.querySelector(".en"),
-        darkBtn = document.querySelector(".dark"),
-        authBtn = document.querySelector(".auth")
-
-    function changeStatePage (btn, state){
-        btn.addEventListener("click", () =>{
-            mainPage.className = "fav-page"
-            if(state){
-                toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", state, userStatus)
-            }
-        })
-    }
-
-    lngBtn.addEventListener("click", () =>{
-        if(locale === "uk"){
-            sessionStorage.setItem("locale", "en")
-            window.location.reload()
-            return
-        }
-        if(locale === "en"){
-            sessionStorage.setItem("locale", "uk")
-            window.location.reload()
-            return
-        }
-    })
-
-
-    authBtn.addEventListener("click", () =>{
-        userId ? sessionStorage.removeItem("userId") : sessionStorage.setItem("userId", '100300268')
-        window.location.reload()
-    })
-
-    changeStatePage(easyBtn, "_easy")
-    changeStatePage(mediumBtn, "_medium")
-    changeStatePage(hightBtn, "_hight")
-
-    menuBtn.addEventListener("click", () =>{
-        menu.classList.toggle("hide")
-    })
-
-    darkBtn.addEventListener("click", () =>{
-        document.body.classList.toggle("dark")
-    })
-
-    // changeStatePage(noStateBtn, false)
+    // document.querySelector('.welcome__scroll').addEventListener('click', function () {
+    //     const targetBlock = document.querySelector('.chose');
+    //     targetBlock.scrollIntoView({ behavior: 'smooth' });
+    // });
 })();
