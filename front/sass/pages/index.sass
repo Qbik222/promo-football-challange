@@ -664,9 +664,11 @@ body
   padding-top: 10px
   align-items: center
   z-index: 1
+  pointer-events: none
   &__card
     display: flex
     opacity: 0
+    pointer-events: initial
   &__title
     color: $magenta
     font-size: 53px
@@ -740,7 +742,11 @@ body
   height: 600px
   opacity: 0
   z-index: 2
+  pointer-events: none
+  .btn
+    pointer-events: initial
   .drop
+    pointer-events: initial
     &._easy
       .drop-txt-list
         display: none
@@ -1025,7 +1031,8 @@ body
 
 
 .notify
-  z-index: 3
+  //z-index: 3
+  z-index: 0
   width: 930px
   height: 280px
   position: relative
