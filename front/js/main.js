@@ -437,15 +437,15 @@
                 if(item.classList.contains("you")){
                     setTimeout(() =>{
                         let you = item.querySelector(".result__bets-you")
-                        let btns = document.querySelectorAll(".result__btn")
                         you.classList.add('showYou')
-                        setTimeout(() =>{
-                            btns.forEach(btn =>{
-                                btn.classList.add("showBtn")
-                            })
-                        }, 200)
                     }, 2700)
                 }
+                setTimeout(() =>{
+                    let btns = document.querySelectorAll(".result__btn")
+                    btns.forEach(btn =>{
+                        btn.classList.add("showBtn")
+                    })
+                }, 2900)
                 setTimeout(() =>{
                     item.classList.add("showItem")
                 }, 250 * items.length - i * 250)
