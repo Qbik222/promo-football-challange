@@ -1,5 +1,5 @@
 (function () {
-    const apiURL = 'https://fav-prom.com/api_football_challange'
+    const apiURL = 'https://fav-prom.com/api_football_challenge_2'
 
     const mainPage = document.querySelector(".fav-page"),
         popupsWrap = document.querySelector(".popup"),
@@ -24,10 +24,12 @@
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
 
+    let debug = true
+
     let i18nData = {};
     const translateState = true;
     let userId;
-    // userId = 7777777
+    userId = 100300268
 
     function init() {
         if (window.store) {
@@ -157,45 +159,48 @@
         const spinItem = document.querySelector('.spins-row');
         const noSpinItem = document.querySelector('.no-spins');
 
-        if (!bets || bets.length === 0) {
-            spinItem.classList.add('hide');
-            noSpinItem.classList.remove('hide');
-            return;
-        }
+        // const noBets = !bets || bets.length === 0;
+        //
+        // if (noBets && !debug) {
+        //     console.log(noBets, debug)
+        //     spinItem.classList.add('hide');
+        //     noSpinItem.classList.remove('hide');
+        //     return;
+        // }
 
-        spinItem.innerHTML =
-            `
-       <div class="spins-row-head">
-            <div class="content-date" data-translate="mySpinsDate"></div>
-            <div class="content-prize" data-translate="mySpinsPrize"></div>
-        </div>
-        `;
-        spinItem.classList.remove('hide');
-        noSpinItem.classList.add('hide');
-
-        let upd = 0;
-        bets.forEach(spin => {
-            const spinDate = new Date(spin.betDate);
-            const formattedDate = spinDate.toLocaleDateString('uk-UA');
-            const status = resolveStatusTranslation(spin.status);
-
-            if (status) {
-                const spinElement = document.createElement('div');
-                spinElement.classList.add('spins-row-item');
-
-                spinElement.innerHTML = `
-                    <span class="content-date">${formattedDate}</span>
-                    <span class="content-prize">${status}</span>
-                `;
-                spinItem.appendChild(spinElement);
-                upd++;
-            }
-        });
-
-        if (upd === 0) {
-            spinItem.classList.add('hide');
-            noSpinItem.classList.remove('hide');
-        }
+       //  spinItem.innerHTML =
+       //      `
+       // <div class="spins-row-head">
+       //      <div class="content-date" data-translate="mySpinsDate"></div>
+       //      <div class="content-prize" data-translate="mySpinsPrize"></div>
+       //  </div>
+       //  `;
+       //  spinItem.classList.remove('hide');
+       //  noSpinItem.classList.add('hide');
+       //
+       //  let upd = 0;
+       //  bets.forEach(spin => {
+       //      const spinDate = new Date(spin.betDate);
+       //      const formattedDate = spinDate.toLocaleDateString('uk-UA');
+       //      const status = resolveStatusTranslation(spin.status);
+       //
+       //      if (status) {
+       //          const spinElement = document.createElement('div');
+       //          spinElement.classList.add('spins-row-item');
+       //
+       //          spinElement.innerHTML = `
+       //              <span class="content-date">${formattedDate}</span>
+       //              <span class="content-prize">${status}</span>
+       //          `;
+       //          spinItem.appendChild(spinElement);
+       //          upd++;
+       //      }
+       //  });
+       //
+       //  if (upd === 0) {
+       //      spinItem.classList.add('hide');
+       //      noSpinItem.classList.remove('hide');
+       //  }
     }
 
     function resolveStatusTranslation(status) {
@@ -453,8 +458,25 @@
         })
     }
 
-    // document.querySelector('.welcome__scroll').addEventListener('click', function () {
-    //     const targetBlock = document.querySelector('.chose');
-    //     targetBlock.scrollIntoView({ behavior: 'smooth' });
-    // });
+    //test
+
+    document.querySelector(".hight-btn").addEventListener("click", () =>{
+        difficults.forEach(css =>{
+            mainPage.classList.remove(css)
+        })
+
+        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_hight", true);
+    })
+    document.querySelector(".easy-btn").addEventListener("click", () =>{
+        difficults.forEach(css =>{
+            mainPage.classList.remove(css)
+        })
+        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_easy", true);
+    })
+    document.querySelector(".medium-btn").addEventListener("click", () =>{
+        difficults.forEach(css =>{
+            mainPage.classList.remove(css)
+        })
+        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_medium", true);
+    })
 })();

@@ -25,9 +25,16 @@
           right: 0
           margin-top: 65px
         &__btn
-          margin-top: 254px
+          margin-top: 255px
         &__card
           padding-bottom: 3px
+          &-amount
+            white-space: nowrap
+            font-size: 14px
+            padding: 5px 10px
+            height: 18px
+            background-size: 100% 100%
+            margin: 30px 0 -12px 0
           &-selected
             font-size: 10px
             line-height: 10px
@@ -117,7 +124,7 @@
               min-height: 60px
               //padding: 7px 0 13px 5px
               padding: 10px 0 17px 5px
-              background: url("https://fav-prom.com/html/football-challange/img/welcome/welcome-title-bg-mob.png") no-repeat 0 0/contain
+              background: url("../img/welcome/welcome-title-bg-mob.png") no-repeat 0 0/contain
               margin-left: -2px
             &-text
               font-size: 12px
@@ -133,11 +140,11 @@
               clip-path: polygon(2.54% 9.61%, -129.72% 90.91%, 100% 100%, 98.59% 1.52%, 2.54% 10.61%)
               min-width: 139px
             &._easy
-              background: url("https://fav-prom.com/html/football-challange/img/welcome/card-mob-easy.png") no-repeat 50% 0/contain
+              background: url("../img/welcome/card-mob-easy.png") no-repeat 50% 0/contain
             &._medium
-              background: url("https://fav-prom.com/html/football-challange/img/welcome/card-mob-medium.png") no-repeat 50% 0/contain
+              background: url("../img/welcome/card-mob-medium.png") no-repeat 50% 0/contain
             &._hight
-              background: url("https://fav-prom.com/html/football-challange/img/welcome/card-mob-hight.png") no-repeat 50% 0/contain
+              background: url("../img/welcome/card-mob-hight.png") no-repeat 50% 0/contain
       &-right
         min-width: 180px
         max-width: 180px
@@ -198,7 +205,7 @@
       max-width: 260px
       margin: -4px 0 0 0
       &-buble
-        background: url("https://fav-prom.com/html/football-challange/img/chose/bubble-mob.png") no-repeat 0 0/contain
+        background: url("../img/chose/bubble-mob.png") no-repeat 0 0/contain
         width: 175px
         height: 85px
         padding: 41px 16px 10px 29px
@@ -217,11 +224,11 @@
       align-items: flex-start
       padding: 27px 0 0 170px
       &._easy
-        background: url("https://fav-prom.com/html/football-challange/img/chose/card-easy-bg-mob.png") no-repeat 50% 0/contain
+        background: url("../img/chose/card-easy-bg-mob.png") no-repeat 50% 0/contain
       &._medium
-        background: url("https://fav-prom.com/html/football-challange/img/chose/card-medium-bg-mob.png") no-repeat 50% 0/contain
+        background: url("../img/chose/card-medium-bg-mob.png") no-repeat 50% 0/contain
       &._hight
-        background: url("https://fav-prom.com/html/football-challange/img/chose/card-hight-bg-mob.png") no-repeat 50% 0/contain
+        background: url("../img/chose/card-hight-bg-mob.png") no-repeat 50% 0/contain
       &-text
         text-align: left
         line-height: 22px
@@ -250,7 +257,7 @@
         top: -34px
         left: 6px
         transform-origin: top right
-        background: url("https://fav-prom.com/html/football-challange/img/chose/card-title-bg-mob.png") no-repeat 0 0/contain
+        background: url("../img/chose/card-title-bg-mob.png") no-repeat 0 0/contain
   .result
     transform: none
     min-width: 700px
@@ -266,7 +273,7 @@
         right: -63px
         width: 230px
         height: 128px
-        background: url("https://fav-prom.com/html/football-challange/img/result/bubble-tab.png") no-repeat 0 0/contain
+        background: url("../img/result/bubble-tab.png") no-repeat 0 0/contain
         padding: 12px 20px 40px 20px
     &__text
       max-width: 700px
@@ -274,9 +281,9 @@
       padding: 0 35px 0 0
       margin: 65px 0
       &::before
-        background: url("https://fav-prom.com/html/football-challange/img/result/result-bg-tab.png") no-repeat 50% 50%/contain
+        background: url("../img/result/result-bg-tab.png") no-repeat 50% 50%/contain
         @media screen and (max-width: 600px)
-          background: url("https://fav-prom.com/html/football-challange/img/result/result-bg-mob.png") no-repeat 50% 50%/contain
+          background: url("../img/result/result-bg-mob.png") no-repeat 50% 50%/contain
     &__last-upd
       left: 4px
   .notify
@@ -373,9 +380,27 @@
   //    max-width: 345px
 
 @media screen and (max-width: 600px)
+  .fav-page
+    &._easy, &._medium, &._hight
+      .welcome
+        &__btn
+          margin-top: 250px
   .drop
     max-width: 365px
     width: 95vw
+  .table
+    &__column
+      max-width: 80px
+      min-width: 80px
+      &:nth-child(3)
+        white-space: normal
+    &__row
+      &-item
+        max-width: 90px
+        min-width: 90px
+      &._you
+        .table__row-item:nth-child(3)
+          margin-right: 10px
   .result
     max-width: 365px
     min-width: 365px
@@ -455,6 +480,23 @@
     &__table
       transform: scale(.9)
       margin: 45px 0 55px 0
+  .table
+    &__column
+      max-width: 60px
+      min-width: 60px
+      font-size: 14px
+      &:nth-child(3)
+        white-space: normal
+    &__row
+      &-item
+        max-width: 60px
+        min-width: 60px
+        font-size: 14px
+      &._you
+        .table__row-item._you-text
+          margin: 0 5px 0 0
+        .table__row-item:nth-child(3)
+          margin-right: auto
 
 @media screen and (max-width: 350px)
   .notify
