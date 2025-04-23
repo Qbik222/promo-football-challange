@@ -28,8 +28,8 @@
 
     let i18nData = {};
     const translateState = true;
-    let userId;
-    userId = 100300268
+    let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
+    // userId = 100300268
 
     function init() {
         if (window.store) {
@@ -124,7 +124,7 @@
             span.innerHTML = formatDate(userInfo.lastUpdate);
             dateContainer.classList.remove('hide');
         } else {
-            dateContainer.classList.add('hide');
+            // dateContainer.classList.add('hide');
         }
     }
 
@@ -373,7 +373,7 @@
         const intervalId = setInterval(updateTimer, 1000);
     }
 
-    startCountdown('.welcome__timer', '2025-01-30T23:59:59');
+    startCountdown('.welcome__timer', '2025-06-30T23:59:59');
 
     function monitorVisibility(selector, animation, delay) {
         const element = document.querySelector(selector);
@@ -458,7 +458,21 @@
         })
     }
 
+    document.querySelector(".toChose").addEventListener('click', function () {
+        const targetElement = document.getElementById("chose");
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 2;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth',
+        });
+    });
+
     //test
+
+    document.querySelector(".menu-btn").addEventListener("click", () =>{
+        document.querySelector(".menu-test").classList.toggle("hide")
+    })
 
     document.querySelector(".hight-btn").addEventListener("click", () =>{
         difficults.forEach(css =>{
@@ -479,4 +493,27 @@
         })
         toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_medium", true);
     })
+
+    document.querySelector('.auth-btn')?.addEventListener('click', () => {
+        const hasId = sessionStorage.getItem('userId');
+        hasId ? sessionStorage.removeItem('userId') : sessionStorage.setItem('userId', '100300268');
+        location.reload();
+    });
+
+    document.querySelector(".lng-btn").addEventListener("click", () => {
+        const currentLocale = sessionStorage.getItem("locale");
+
+        if (currentLocale === "en") {
+            sessionStorage.removeItem("locale");
+        } else {
+            sessionStorage.setItem("locale", "en");
+        }
+
+        location.reload();
+    });
+
+    document.querySelector(".dark-btn").addEventListener("click", () =>{
+        document.body.classList.toggle("dark")
+    })
+
 })();

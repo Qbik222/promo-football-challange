@@ -1,7 +1,11 @@
+button.menu-btn menu
 .menu-test
     button.easy-btn easy
     button.medium-btn medium
     button.hight-btn hight
+    button.auth-btn auth
+    button.lng-btn lng
+    button.dark-btn dark
 .fav-page
     .welcome
         .welcome__left
@@ -11,7 +15,7 @@
             a(href="/login/?utm_source=retention&utm_medium=promo&utm_campaign=Football_challenge_log_in&utm_id=Football_challenge_log_in").welcome__btn.btn.unauth-msg #[span.btn-txt(data-translate="signBtn")]
             //.welcome__btn.btn.part-btn.hide #[span.btn-txt(data-translate="partBtn")]
             a(href="/sports/sport/soccer/?utm_source=retention&utm_medium=promo&utm_campaign=Football_challenge&utm_id=Football_challenge").welcome__btn.btn.btn-join.hide #[span.btn-txt(data-translate="mainBtn")]
-            .welcome__scroll
+            .welcome__scroll.toChose
                 .welcome__scroll-left #[span.welcome__scroll-left-icon] #[span.welcome__scroll-left-text(data-translate="welcomeScroll")]
                 .welcome__scroll-right #[span.welcome__scroll-right-arrow] #[span.welcome__scroll-right-cursor]
         .welcome__right
@@ -94,7 +98,7 @@
                     .welcome__timer-item
                         .welcome__timer-item-num
                         .welcome__timer-item-text(data-translate="seconds")
-    .chose
+    .chose#chose
         .chose__title(data-translate="choseTitle")
         .chose__subtitle(data-translate="choseSubtitle")
         .chose__body
@@ -143,84 +147,6 @@
                     .drop-txt-list._easy(data-translate="detailsEasy")
                     .drop-txt-list._medium(data-translate="detailsHight")
                     .drop-txt-list._hight(data-translate="detailsMedium")
-        .drop._table
-            details.dropdown
-                summary(data-translate="tableBtn")
-                .table
-                    .table__head
-                        .table__column(data-translate="tablePlace")
-                        .table__column(data-translate="tableId")
-                        .table__column(data-translate="tableBet")
-                    .table__row._you
-                        .table__row-item 7
-                        .table__row-item._you-text(data-translate="you")
-                        .table__row-item 100300268
-                        .table__row-item 5
-                    .table__scroll
-                        .table__body
-                            .table__row
-                                .table__row-item 1
-                                .table__row-item 100300268
-                                .table__row-item 5
-                            .table__row
-                                .table__row-item 2
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 3
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 4
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 1
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 5
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 6
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 7
-                                .table__row-item 100300268
-                                .table__row-item 5
-                            .table__row
-                                .table__row-item 8
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 9
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 10
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 11
-                                .table__row-item 100300268
-                                .table__row-item 5
-
-                            .table__row
-                                .table__row-item 12
-                                .table__row-item 100300268
-                                .table__row-item 5
-
         .result__table
             .result__pers
                 .result__pers-buble(data-translate="resultBuble")
@@ -303,7 +229,7 @@
                 //a(href="#").result__btn.btn.part-btn.hide #[span.btn-txt(data-translate="partBtn")]
                 a(href="/sports/sport/soccer/?utm_source=retention&utm_medium=promo&utm_campaign=Football_challenge&utm_id=Football_challenge").result__btn.btn.btn-join.hide #[span.btn-txt(data-translate="mainBtn")]
                 a(href="/login/?utm_source=retention&utm_medium=promo&utm_campaign=Football_challenge_log_in&utm_id=Football_challenge_log_in").result__btn.btn.unauth-msg.hide #[span.btn-txt(data-translate="signBtn")]
-            .result__last-upd #[span(data-translate='resultUpd')] #[span#lastUpd -]
+            .result__last-upd #[span(data-translate='resultUpd')] #[span#lastUpd - 21.02.2025]
         .drop
             details.dropdown
                 summary(data-translate="mySpins")
@@ -359,6 +285,85 @@
                                 span.content-prize ID: 388310247
                                 span.content-status
                         .no-spins.hide(data-translate="noBets")
+        .drop._table
+            details.dropdown
+                summary(data-translate="tableBtn")
+                .table
+                    .table__head
+                        .table__column(data-translate="tablePlace")
+                        .table__column(data-translate="tableId")
+                        .table__column(data-translate="tableBet")
+                    .table__row._you
+                        .table__row-item 7
+                        .table__row-item._you-text(data-translate="you")
+                        .table__row-item 100300268
+                        .table__row-item 5
+                    .table__scroll
+                        .table__body
+                            .table__row
+                                .table__row-item 1
+                                .table__row-item 100300268
+                                .table__row-item 5
+                            .table__row
+                                .table__row-item 2
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 3
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 4
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 1
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 5
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 6
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 7
+                                .table__row-item 100300268
+                                .table__row-item 5
+                            .table__row
+                                .table__row-item 8
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 9
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 10
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 11
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+                            .table__row
+                                .table__row-item 12
+                                .table__row-item 100300268
+                                .table__row-item 5
+
+
     .notify
         .notify__pers._notify
             .notify__pers-buble #[span.notify__info.info-icon ] #[span(data-translate="notifyBuble")]

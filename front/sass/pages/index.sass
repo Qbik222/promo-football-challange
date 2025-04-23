@@ -1292,6 +1292,12 @@ details summary::-webkit-details-marker
           justify-content: space-between
           width: 100%
           gap: 2px
+          &-head
+            .content-date
+              min-width: 80px
+          &-item
+            .content-date
+              min-width: 60px
           &-item, &-head
             display: flex
             justify-content: flex-start
@@ -1320,7 +1326,7 @@ details summary::-webkit-details-marker
               line-height: 20px
           .content-date
             margin-right: 10px
-            min-width: 80px
+            //min-width: 60px
             max-width: fit-content
             padding: 0
             @media screen and (max-width: 600px)
@@ -1475,6 +1481,15 @@ details summary::-webkit-details-marker
       top: 0
       transform: translate(100%, 0)
 
+
+.chose
+  &__card
+    &-amount
+      margin-top: auto
+.welcome
+  &__card
+    &-amount
+      margin: 0 0 -15px 0
 // popups
 .popup
   width: 100%

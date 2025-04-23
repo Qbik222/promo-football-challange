@@ -40,7 +40,17 @@
             line-height: 10px
             padding: 5px 7px 6px 7px
             margin: auto auto -12px auto
-
+  .chose
+    &__card
+      &:hover
+        .chose__card-amount
+          transform: rotate(-3deg) translate(0, -100%)
+      &-amount
+        position: absolute
+        top: 9px
+        //right: 25px
+        left: 145px
+        transform: translate(0, -100%)
   .btn
     min-width: 280px
     .btn-txt
@@ -254,7 +264,7 @@
         line-height: 33px
         min-height: 60px
         position: absolute
-        top: -34px
+        top: -25px
         left: 6px
         transform-origin: top right
         background: url("../img/chose/card-title-bg-mob.png") no-repeat 0 0/contain
@@ -477,6 +487,9 @@
     transform: scale(.85)
     margin: -60px 0
   .result
+    &__text
+      max-width: 90vw
+      text-wrap: balance
     &__table
       transform: scale(.9)
       margin: 45px 0 55px 0
