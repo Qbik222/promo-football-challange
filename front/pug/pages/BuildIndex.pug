@@ -6,18 +6,18 @@ button.menu-btn menu
     button.auth-btn auth
     button.lng-btn lng
     button.dark-btn dark
-.fav-page
+.fav-page#football-challenge
     .welcome
         .welcome__left
             //.welcome__title(data-translate="welcomeTitle")
             .welcome__subtitle(data-translate="welcomeSubtitle")
             .welcome__text(data-translate="welcomeText")
             a(href="/login/?utm_source=retention&utm_medium=promo&utm_campaign=Football_challenge_log_in&utm_id=Football_challenge_log_in").welcome__btn.btn.unauth-msg #[span.btn-txt(data-translate="signBtn")]
-            //.welcome__btn.btn.part-btn.hide #[span.btn-txt(data-translate="partBtn")]
+            .welcome__btn.btn.part-btn.hide.toChose #[span.btn-txt(data-translate="partBtn")]
             a(href="/sports/sport/soccer/?utm_source=retention&utm_medium=promo&utm_campaign=Football_challenge&utm_id=Football_challenge").welcome__btn.btn.btn-join.hide #[span.btn-txt(data-translate="mainBtn")]
-            .welcome__scroll.toChose
-                .welcome__scroll-left #[span.welcome__scroll-left-icon] #[span.welcome__scroll-left-text(data-translate="welcomeScroll")]
-                .welcome__scroll-right #[span.welcome__scroll-right-arrow] #[span.welcome__scroll-right-cursor]
+            //.welcome__scroll.toChose
+            //    .welcome__scroll-left #[span.welcome__scroll-left-icon] #[span.welcome__scroll-left-text(data-translate="welcomeScroll")]
+            //    .welcome__scroll-right #[span.welcome__scroll-right-arrow] #[span.welcome__scroll-right-cursor]
         .welcome__right
             .welcome__lock
                 .welcome__lock-left
@@ -293,12 +293,12 @@ button.menu-btn menu
                         .table__column(data-translate="tablePlace")
                         .table__column(data-translate="tableId")
                         .table__column(data-translate="tableBet")
-                    .table__row._you
+                    .table__row._you#tableOther
                         .table__row-item 7
                         .table__row-item._you-text(data-translate="you")
                         .table__row-item 100300268
                         .table__row-item 5
-                    .table__scroll
+                    .table__scroll#table
                         .table__body
                             .table__row
                                 .table__row-item 1

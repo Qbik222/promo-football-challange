@@ -26,16 +26,42 @@
 
     let debug = true
 
+    const mockBets = [
+        { id: 388310247, betDate: '2025-04-20T12:00:00', status: 'win' },
+        { id: 388310247, betDate: '2025-04-20T12:00:00', status: 'win' },
+        { id: 388310248, betDate: '2025-04-19T15:30:00', status: 'lose' },
+        { id: 388310248, betDate: '2025-04-19T15:30:00', status: 'win' },
+        { id: 388310248, betDate: '2025-04-19T15:30:00', status: 'lose' },
+        { id: 388310248, betDate: '2025-04-19T15:30:00', status: 'lose' },
+        { id: 388310248, betDate: '2025-04-19T15:30:00', status: 'lose' },
+        { id: 388310249, betDate: '2025-04-18T09:15:00', status: undefined },
+    ];
+
+    const mockUsers = [
+        { userid: 388310247, bet: 10 },
+        { userid: 123456789, bet: 9 },
+        { userid: 100300268, bet: 8 },
+        { userid: 111222333, bet: 7 },
+        { userid: 111222343, bet: 7 },
+        { userid: 111222353, bet: 6 },
+        { userid: 111222363, bet: 5 },
+        { userid: 444555666, bet: 5 },
+        { userid: 100300268, bet: 4 },
+    ];
+
+
     let i18nData = {};
     const translateState = true;
     let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
     // userId = 100300268
 
     function init() {
+        renderUsers() // для локального запуску
         if (window.store) {
             var state = window.store.getState();
             userId = state.auth.isAuthorized && state.auth.id || '';
             checkUserAuth();
+            renderUsers()
         } else {
             checkUserAuth();
             let c = 0;
@@ -44,14 +70,18 @@
                     if (!!window.g_user_id) {
                         userId = window.g_user_id;
                         checkUserAuth();
+                        renderUsers()
                         clearInterval(i);
                     }
                 } else {
+                    renderUsers()
                     clearInterval(i);
                 }
             }, 200);
         }
     }
+
+
 
     function participate(mode) {
         if (!userId || !mode) {
@@ -78,6 +108,11 @@
 
                 var mutationObserver = new MutationObserver(function (mutations) {
                     translate();
+                });
+
+                mutationObserver.observe(document.getElementById("football-challenge"), {
+                    childList: true,
+                    subtree: true
                 });
 
             });
@@ -156,51 +191,61 @@
     }
 
     function displayBetsHistory(bets) {
+        // return;
         const spinItem = document.querySelector('.spins-row');
         const noSpinItem = document.querySelector('.no-spins');
 
-        // const noBets = !bets || bets.length === 0;
-        //
-        // if (noBets && !debug) {
-        //     console.log(noBets, debug)
-        //     spinItem.classList.add('hide');
-        //     noSpinItem.classList.remove('hide');
-        //     return;
-        // }
+        const noBets = !bets || bets.length === 0;
 
-       //  spinItem.innerHTML =
-       //      `
-       // <div class="spins-row-head">
-       //      <div class="content-date" data-translate="mySpinsDate"></div>
-       //      <div class="content-prize" data-translate="mySpinsPrize"></div>
-       //  </div>
-       //  `;
-       //  spinItem.classList.remove('hide');
-       //  noSpinItem.classList.add('hide');
-       //
-       //  let upd = 0;
-       //  bets.forEach(spin => {
-       //      const spinDate = new Date(spin.betDate);
-       //      const formattedDate = spinDate.toLocaleDateString('uk-UA');
-       //      const status = resolveStatusTranslation(spin.status);
-       //
-       //      if (status) {
-       //          const spinElement = document.createElement('div');
-       //          spinElement.classList.add('spins-row-item');
-       //
-       //          spinElement.innerHTML = `
-       //              <span class="content-date">${formattedDate}</span>
-       //              <span class="content-prize">${status}</span>
-       //          `;
-       //          spinItem.appendChild(spinElement);
-       //          upd++;
-       //      }
-       //  });
-       //
-       //  if (upd === 0) {
-       //      spinItem.classList.add('hide');
-       //      noSpinItem.classList.remove('hide');
-       //  }
+        if (noBets && !debug) {
+            console.log(noBets, debug)
+            spinItem.classList.add('hide');
+            noSpinItem.classList.remove('hide');
+            return;
+        }
+
+        if(debug){
+            bets = mockBets
+        }
+
+        spinItem.innerHTML =
+            `
+       <div class="spins-row-head">
+            <div class="content-date" data-translate="myBetDate"></div>
+            <div class="content-prize" data-translate="myBetPrize"></div>
+            <div class="content-status" data-translate="myBetStatus"></div>
+        </div>
+        `;
+        spinItem.classList.remove('hide');
+        noSpinItem.classList.add('hide');
+
+        let upd = 0;
+        bets.forEach(spin => {
+            const spinDate = new Date(spin.betDate);
+            const formattedDate = spinDate.toLocaleDateString('uk-UA').slice(0, 5);
+            const status = resolveStatusTranslation(spin.status);
+
+            if (status) {
+                const spinElement = document.createElement('div');
+                spinElement.classList.add('spins-row-item');
+
+                const isWin = spin.status === 'win';
+                const statusClass = isWin ? '_done' : '';
+
+                spinElement.innerHTML = `
+                    <span class="content-date">${formattedDate}</span>
+                    <span class="content-prize">ID:${spin.id}</span>
+                    <span class="content-status ${statusClass}"></span>
+                `;
+                spinItem.appendChild(spinElement);
+                upd++;
+            }
+        });
+
+        if (upd === 0) {
+            spinItem.classList.add('hide');
+            noSpinItem.classList.remove('hide');
+        }
     }
 
     function resolveStatusTranslation(status) {
@@ -253,7 +298,7 @@
                     } else {
                         initChooseCards(choseCards);
                         participateBtns.forEach(item => item.classList.remove('hide'));
-                        redirectBtns.forEach(item => item.classList.remove('hide'));
+                        redirectBtns.forEach(item => item.classList.add('hide'));
                     }
                 })
         } else {
@@ -267,6 +312,86 @@
             return Promise.resolve(false);
         }
     }
+
+    function renderUsers() {
+        if (debug) {
+            populateUsersTable(mockUsers, userId);
+            return;
+        }
+
+        request(`/users/${currentTabTable}`).then(data => {
+            let users = data.users;
+            populateUsersTable(users, userId);
+        });
+    }
+
+    function populateUsersTable(users, currentUserId) {
+        const youRow = document.querySelector('.table__row._you');
+        const tableBody = document.querySelector('.table__body');
+
+        if (!users?.length || currentUserId === undefined) return; // додано перевірку на currentUserId
+
+        // Очищення
+        youRow.innerHTML = '';
+        tableBody.innerHTML = '';
+
+        users.sort((a, b) => b.bet - a.bet);
+
+        users.forEach((user, index) => {
+            const isCurrentUser = user.userid === currentUserId;
+            displayUser(user, isCurrentUser, index + 1, isCurrentUser ? youRow : tableBody);
+        });
+    }
+
+    function displayUser(user, isCurrentUser, place, target) {
+        const userIdDisplay = isCurrentUser ? user.userid : maskUserId(user.userid);
+        const row = document.createElement('div');
+        row.classList.add('table__row');
+
+        if (isCurrentUser) {
+            // Створення елементу 'you' та вставка його після елементу з місцем
+            const youText = document.createElement('div');
+            youText.classList.add('table__row-item', '_you-text');
+            youText.setAttribute('data-translate', 'you');
+
+            row.innerHTML = `
+            <div class="table__row-item">${place}</div>
+        `;
+
+            // Додаємо "you" текст після місця
+            row.appendChild(youText);
+
+            // Потім додаємо userId та ставку
+            const userIdDiv = document.createElement('div');
+            userIdDiv.classList.add('table__row-item');
+            userIdDiv.textContent = userIdDisplay;
+
+            const betDiv = document.createElement('div');
+            betDiv.classList.add('table__row-item');
+            betDiv.textContent = user.bet;
+
+            row.appendChild(userIdDiv);
+            row.appendChild(betDiv);
+
+            target.classList.add('_you');
+            target.innerHTML = ''; // очищаємо target перед додаванням нового контенту
+            target.appendChild(row);
+        } else {
+            // Для інших користувачів, додаємо без зміни структури
+            row.innerHTML = `
+            <div class="table__row-item">${place}</div>
+            <div class="table__row-item">${userIdDisplay}</div>
+            <div class="table__row-item">${user.bet}</div>
+        `;
+            target.appendChild(row);
+        }
+    }
+
+
+    function maskUserId(userId) {
+        return "**" + userId.toString().slice(2);
+    }
+
 
     loadTranslations()
         .then(init);
@@ -458,7 +583,8 @@
         })
     }
 
-    document.querySelector(".toChose").addEventListener('click', function () {
+    document.querySelector(".toChose").addEventListener('click', function (e) {
+        e.stopPropagation()
         const targetElement = document.getElementById("chose");
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 2;
 
