@@ -40,13 +40,16 @@
     const mockUsers = [
         { userid: 388310247, bet: 10 },
         { userid: 123456789, bet: 9 },
-        { userid: 100300268, bet: 8 },
+        { userid: 100300368, bet: 8 },
+        { userid: 100300168, bet: 8 },
+        { userid: 100300068, bet: 8 },
+        { userid: 100308268, bet: 8 },
         { userid: 111222333, bet: 7 },
         { userid: 111222343, bet: 7 },
         { userid: 111222353, bet: 6 },
         { userid: 111222363, bet: 5 },
         { userid: 444555666, bet: 5 },
-        { userid: 100300268, bet: 4 },
+        { userid: 100300268, bet: 6 },
     ];
 
 
@@ -326,8 +329,8 @@
     }
 
     function populateUsersTable(users, currentUserId) {
-        const youRow = document.querySelector('.table__row._you');
-        const tableBody = document.querySelector('.table__body');
+        const youRow = document.querySelector('#tableOther');
+        const tableBody = document.querySelector('#table');
 
         if (!users?.length || currentUserId === undefined) return; // додано перевірку на currentUserId
 
@@ -339,14 +342,25 @@
 
         users.forEach((user, index) => {
             const isCurrentUser = user.userid === currentUserId;
-            displayUser(user, isCurrentUser, index + 1, isCurrentUser ? youRow : tableBody);
+            let isTopUser = false
+
+            if(index <= 5 && isCurrentUser){
+               isTopUser = true
+            }
+
+            displayUser(user, isCurrentUser, index + 1, isCurrentUser && !isTopUser ? youRow : tableBody);
         });
     }
 
     function displayUser(user, isCurrentUser, place, target) {
+
+        console.log(target)
+
         const userIdDisplay = isCurrentUser ? user.userid : maskUserId(user.userid);
         const row = document.createElement('div');
         row.classList.add('table__row');
+
+        console.log(target)
 
         if (isCurrentUser) {
             // Створення елементу 'you' та вставка його після елементу з місцем
@@ -373,18 +387,21 @@
             row.appendChild(userIdDiv);
             row.appendChild(betDiv);
 
-            target.classList.add('_you');
-            target.innerHTML = ''; // очищаємо target перед додаванням нового контенту
-            target.appendChild(row);
+            row.classList.add('_you');
+            // target.innerHTML = ''; // очищаємо target перед додаванням нового контенту
         } else {
+            console.log(row)
             // Для інших користувачів, додаємо без зміни структури
             row.innerHTML = `
             <div class="table__row-item">${place}</div>
             <div class="table__row-item">${userIdDisplay}</div>
             <div class="table__row-item">${user.bet}</div>
         `;
-            target.appendChild(row);
+            console.log(row)
+
+
         }
+        target.appendChild(row);
     }
 
 
