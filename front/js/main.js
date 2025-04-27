@@ -58,7 +58,6 @@
     const translateState = true;
     let userMode;
     let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
-    userId;
 
     function init() {
         renderUsers() // для локального запуску
@@ -68,7 +67,7 @@
             checkUserAuth();
             renderUsers()
         } else {
-            checkUserAuth();
+            // checkUserAuth();
             let c = 0;
             var i = setInterval(function () {
                 if (c < 50) {
@@ -79,6 +78,7 @@
                         clearInterval(i);
                     }
                 } else {
+                    checkUserAuth();
                     renderUsers()
                     clearInterval(i);
                 }
@@ -667,10 +667,10 @@
     document.querySelector(".lng-btn").addEventListener("click", () => {
         const currentLocale = sessionStorage.getItem("locale");
 
-        if (currentLocale === "en") {
+        if (currentLocale === "uk") {
             sessionStorage.removeItem("locale");
         } else {
-            sessionStorage.setItem("locale", "en");
+            sessionStorage.setItem("locale", "uk");
         }
 
         location.reload();
