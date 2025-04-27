@@ -57,10 +57,9 @@
     let i18nData = {};
     const translateState = true;
     let userMode;
-    let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
+    let userId = null;
 
     function init() {
-        renderUsers() // для локального запуску
         if (window.store) {
             var state = window.store.getState();
             userId = state.auth.isAuthorized && state.auth.id || '';
@@ -84,6 +83,8 @@
                 }
             }, 200);
         }
+        checkUserAuth() // для локального тесту
+        renderUsers() // для локального тесту
     }
 
 
@@ -236,7 +237,7 @@
                 const spinElement = document.createElement('div');
                 spinElement.classList.add('spins-row-item');
 
-                const isWin = spin.win;
+                const isWin = spin.status === "win";
                 const statusClass = isWin ? '_done' : '';
 
                 spinElement.innerHTML = `
@@ -298,9 +299,6 @@
                     if (res.userid) {
                         participateBtns.forEach(item => item.classList.add('hide'));
                         redirectBtns.forEach(item => item.classList.remove('hide'));
-
-
-
                         if(res.mode){
                            userMode = res.mode
                         }
@@ -336,11 +334,13 @@
             return;
         }
 
-        userMode = sessionStorage.getItem("userMode")
+        // userMode = sessionStorage.getItem("userMode")
 
         request(`/users/`).then(data => {
-            let users = data.filter(user => user.mode === userMode);
-            console.log(users)
+            const user = data.find(user => user.userid === userId);
+            const mode = user ? user.mode : null;
+            const users = data.filter(user => user.mode === mode);
+            console.log(users);
             populateUsersTable(users, userId);
         });
     }
@@ -349,7 +349,7 @@
         const youRow = document.querySelector('#tableOther');
         const tableBody = document.querySelector('#table');
 
-        if (!users?.length || currentUserId === undefined) return; // додано перевірку на currentUserId
+        if (!users?.length || currentUserId === undefined) return;
 
         // Очищення
         youRow.innerHTML = '';
@@ -405,10 +405,8 @@
             row.appendChild(betDiv);
 
             row.classList.add('_you');
-            // target.innerHTML = ''; // очищаємо target перед додаванням нового контенту
         } else {
             console.log(row)
-            // Для інших користувачів, додаємо без зміни структури
             row.innerHTML = `
             <div class="table__row-item">${place}</div>
             <div class="table__row-item">${userIdDisplay}</div>
@@ -536,7 +534,7 @@
         const intervalId = setInterval(updateTimer, 1000);
     }
 
-    startCountdown('.welcome__timer', '2025-06-30T23:59:59');
+    startCountdown('.welcome__timer', '2025-04-28T12:00:00');
 
     function monitorVisibility(selector, animation, delay) {
         const element = document.querySelector(selector);
