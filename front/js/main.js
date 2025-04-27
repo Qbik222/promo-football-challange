@@ -56,7 +56,7 @@
     let i18nData = {};
     const translateState = true;
     let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
-    // userId = 100300268
+    userId = 100302270
 
     function init() {
         renderUsers() // для локального запуску
@@ -184,12 +184,12 @@
             element.classList.remove('_done');
             element.classList.remove('_fail');
             let status = '_fail';
-            if (bet.status === 'win') {
+            if (bet.win) {
                 status = '_done';
-            } else if (!bet.status || bet.status === 'undefined') {
+            } else if (bet.win === undefined || bet.win === 'undefined') {
                 status = 'you';
             }
-            element.classList.add(status);
+
         }
     }
 
@@ -322,8 +322,9 @@
             return;
         }
 
-        request(`/users/${currentTabTable}`).then(data => {
+        request(`/users/`).then(data => {
             let users = data.users;
+            console.log(data)
             populateUsersTable(users, userId);
         });
     }
