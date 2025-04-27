@@ -52,12 +52,13 @@
         { userid: 100300268, bet: 6 },
     ];
 
+    sessionStorage.removeItem("userMode")
 
     let i18nData = {};
     const translateState = true;
     let userMode;
     let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
-    userId = 100200333;
+    userId;
 
     function init() {
         renderUsers() // для локального запуску
@@ -179,7 +180,6 @@
 
     function refreshBets(bets) {
         const divs = document.querySelectorAll('.result__bets-item');
-        // divs[bets.length].classList.add("you")
         for (let i = 0; i < bets.length; i++) {
             const element = divs[i];
             const bet = bets[i];
@@ -187,9 +187,9 @@
             element.classList.remove('_done');
             element.classList.remove('_fail');
             let status = '_fail';
-            if (bet.win) {
+            if (bet.status === 'win') {
                 status = '_done';
-            } else if (bet.win === undefined || bet.win === 'undefined') {
+            } else if (!bet.status || bet.status === 'undefined') {
                 status = 'you';
             }
             element.classList.add(status);
@@ -212,6 +212,8 @@
         if(debug){
             bets = mockBets
         }
+
+        console.log(bets)
 
         spinItem.innerHTML =
             `
@@ -328,6 +330,7 @@
     }
 
     function renderUsers() {
+        console.log("render")
         if (debug) {
             populateUsersTable(mockUsers, userId);
             return;
@@ -443,6 +446,10 @@
                     if (card.classList.contains(item)) {
                         const mode = modeMap[item];
                         participate(mode);
+                        setTimeout(() =>{
+                            checkUserAuth()
+                            renderUsers()
+                        }, 200)
                         break;
                     }
                 }
