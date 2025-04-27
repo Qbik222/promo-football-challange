@@ -56,7 +56,7 @@
     let i18nData = {};
     const translateState = true;
     let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
-    userId = 100302270
+    userId;
 
     function init() {
         renderUsers() // для локального запуску
