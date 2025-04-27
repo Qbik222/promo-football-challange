@@ -24,7 +24,7 @@
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
 
-    let debug = true
+    let debug = false
 
     const mockBets = [
         { id: 388310247, betDate: '2025-04-20T12:00:00', status: 'win' },
@@ -55,8 +55,9 @@
 
     let i18nData = {};
     const translateState = true;
+    let userMode;
     let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
-    userId;
+    userId = 100200333;
 
     function init() {
         renderUsers() // для локального запуску
@@ -148,8 +149,9 @@
     }
 
     function displayUserInfo(userInfo) {
-        const bets = userInfo.bets.slice(0, 10);
+        const bets = userInfo.bets.slice(0, 20);
         // let bets = [{betDate: new Date(), status: 'undefined'}]
+        console.log(userInfo)
         refreshBets(bets);
         displayBetsHistory(bets);
         refreshLastUpdatedDate(userInfo);
@@ -177,6 +179,7 @@
 
     function refreshBets(bets) {
         const divs = document.querySelectorAll('.result__bets-item');
+        // divs[bets.length].classList.add("you")
         for (let i = 0; i < bets.length; i++) {
             const element = divs[i];
             const bet = bets[i];
@@ -189,10 +192,9 @@
             } else if (bet.win === undefined || bet.win === 'undefined') {
                 status = 'you';
             }
-
+            element.classList.add(status);
         }
     }
-
     function displayBetsHistory(bets) {
         // return;
         const spinItem = document.querySelector('.spins-row');
@@ -232,12 +234,12 @@
                 const spinElement = document.createElement('div');
                 spinElement.classList.add('spins-row-item');
 
-                const isWin = spin.status === 'win';
+                const isWin = spin.win;
                 const statusClass = isWin ? '_done' : '';
 
                 spinElement.innerHTML = `
                     <span class="content-date">${formattedDate}</span>
-                    <span class="content-prize">ID:${spin.id}</span>
+                    <span class="content-prize">ID:${spin.betId}</span>
                     <span class="content-status ${statusClass}"></span>
                 `;
                 spinItem.appendChild(spinElement);
@@ -295,8 +297,17 @@
                         participateBtns.forEach(item => item.classList.add('hide'));
                         redirectBtns.forEach(item => item.classList.remove('hide'));
 
+
+
+                        if(res.mode){
+                           userMode = res.mode
+                        }
+
+                        sessionStorage.setItem("userMode", userMode)
+
                         const css = modeMap[res.mode];
                         toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", css, false);
+                        console.log(res)
                         displayUserInfo(res);
                     } else {
                         initChooseCards(choseCards);
@@ -322,9 +333,11 @@
             return;
         }
 
+        userMode = sessionStorage.getItem("userMode")
+
         request(`/users/`).then(data => {
-            let users = data.users;
-            console.log(data)
+            let users = data.filter(user => user.mode === userMode);
+            console.log(users)
             populateUsersTable(users, userId);
         });
     }
@@ -383,7 +396,7 @@
 
             const betDiv = document.createElement('div');
             betDiv.classList.add('table__row-item');
-            betDiv.textContent = user.bet;
+            betDiv.textContent = user.winCount;
 
             row.appendChild(userIdDiv);
             row.appendChild(betDiv);
@@ -396,7 +409,7 @@
             row.innerHTML = `
             <div class="table__row-item">${place}</div>
             <div class="table__row-item">${userIdDisplay}</div>
-            <div class="table__row-item">${user.bet}</div>
+            <div class="table__row-item">${user.winCount}</div>
         `;
             console.log(row)
 
