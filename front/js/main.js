@@ -10,7 +10,8 @@
         unauthMsgs = document.querySelectorAll('.unauth-msg'),
         participateBtns = document.querySelectorAll('.part-btn'),
         redirectBtns = document.querySelectorAll('.btn-join'),
-        choseCards = document.querySelectorAll(".chose__card")
+        choseCards = document.querySelectorAll(".chose__card"),
+        choseCardsInfo = document.querySelectorAll(".chose__card-info")
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
@@ -18,7 +19,7 @@
     const difficults = ["_easy", "_medium", "_hight"];
     const modeMap = {"novice": "_easy", "experienced": "_medium", "insane": "_hight", "_easy": "novice", "_medium": "experienced", "_hight": "insane"};
 
-    let locale = sessionStorage.getItem("locale") ? sessionStorage.getItem("locale") : "uk"
+    let locale = "en"
 
 
     if (ukLeng) locale = 'uk';
@@ -59,34 +60,71 @@
     let userMode;
     let userId = null;
 
-    function init() {
-        if (window.store) {
-            var state = window.store.getState();
-            userId = state.auth.isAuthorized && state.auth.id || '';
-            checkUserAuth();
-            renderUsers()
-        } else {
-            // checkUserAuth();
-            let c = 0;
-            var i = setInterval(function () {
-                if (c < 50) {
-                    if (!!window.g_user_id) {
-                        userId = window.g_user_id;
-                        checkUserAuth();
-                        renderUsers()
-                        clearInterval(i);
-                    }
-                } else {
-                    checkUserAuth();
-                    renderUsers()
-                    clearInterval(i);
-                }
-            }, 200);
+    async function init() {
+        let attempts = 0;
+        const maxAttempts = 50;
+        const attemptInterval = 200;
+
+        function tryDetectUserId() {
+            if (window.store) {
+                const state = window.store.getState();
+                userId = state.auth.isAuthorized && state.auth.id || '';
+            } else if (window.g_user_id) {
+                userId = window.g_user_id;
+            }
         }
-        checkUserAuth() // для локального тесту
-        renderUsers() // для локального тесту
+
+        function quickCheckAndRender() {
+            checkUserAuth();
+            renderUsers();
+        }
+
+        const waitForUserId = new Promise((resolve) => {
+            const interval = setInterval(() => {
+                tryDetectUserId();
+                quickCheckAndRender();
+
+                if (userId || attempts >= maxAttempts) {
+                    clearInterval(interval);
+                    resolve();
+                }
+                attempts++;
+            }, attemptInterval);
+        });
+
+        await waitForUserId;
     }
 
+
+    // function init() {
+    //     if (window.store) {
+    //         var state = window.store.getState();
+    //         userId = state.auth.isAuthorized && state.auth.id || '';
+    //         checkUserAuth();
+    //         renderUsers()
+    //     } else {
+    //         let c = 0;
+    //         var i = setInterval(function () {
+    //             if (c < 50) {
+    //                 if (!!window.g_user_id) {
+    //                     userId = window.g_user_id;
+    //                     checkUserAuth();
+    //                     renderUsers()
+    //                     clearInterval(i);
+    //                 }
+    //             } else {
+    //                 checkUserAuth();
+    //                 renderUsers()
+    //                 clearInterval(i);
+    //             }
+    //             checkUserAuth();
+    //             renderUsers()
+    //         }, 200);
+    //     }
+    //     // checkUserAuth() // для локального тесту
+    //     // renderUsers() // для локального тесту
+    // }
+    //
 
 
     function participate(mode) {
@@ -160,13 +198,14 @@
     }
 
     function refreshLastUpdatedDate(userInfo) {
+        console.log(userInfo)
         const dateContainer = document.querySelector('.result__last-upd');
         const span = document.getElementById('lastUpd');
-        if (userInfo.lastUpdate) {
-            span.innerHTML = formatDate(userInfo.lastUpdate);
+        if (userInfo.date) {
+            span.innerHTML = formatDate(userInfo.date);
             dateContainer.classList.remove('hide');
         } else {
-            // dateContainer.classList.add('hide');
+            dateContainer.classList.add('hide');
         }
     }
 
@@ -294,6 +333,9 @@
             for (const unauthMes of unauthMsgs) {
                 unauthMes.classList.add('hide');
             }
+            for (const info of choseCardsInfo) {
+                info.classList.add('hide');
+            }
             return request(`/favuser/${userId}?nocache=1`)
                 .then(res => {
                     if (res.userid) {
@@ -317,6 +359,9 @@
                 })
         } else {
             // displayUserSpins(0);
+            for (const info of choseCardsInfo) {
+                info.classList.add('hide');
+            }
             for (let participateBtn of participateBtns) {
                 participateBtn.classList.add('hide');
             }
@@ -534,7 +579,7 @@
         const intervalId = setInterval(updateTimer, 1000);
     }
 
-    startCountdown('.welcome__timer', '2025-04-28T12:00:00');
+    startCountdown('.welcome__timer', '2025-05-11T23:59:59');
 
     function monitorVisibility(selector, animation, delay) {
         const element = document.querySelector(selector);
@@ -557,12 +602,14 @@
         observer.observe(element);
     }
 
+
     monitorVisibility('.notify__pers', "showZeus", 0);
     monitorVisibility('.notify__pers-buble', "showZeusBuble", 1200);
     monitorVisibility('.chose__pers-buble', "showZeusBuble", 0);
     monitorVisibility('.chose__card._easy', "showCard", 400);
     monitorVisibility('.chose__card._medium', "showCard", 800);
     monitorVisibility('.chose__card._hight', "showCard", 1200);
+
 
 
     function toggleBlocks(hideBlock, hideClass, showBlock, showClass, state, animate){

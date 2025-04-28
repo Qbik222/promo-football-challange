@@ -116,6 +116,7 @@ body
   padding: 30px 0
   background: url("https://fav-prom.com/html/football-challange-2/img/bg.jpg") no-repeat 0 0/cover
   overflow: hidden
+  background-size: 100vw 2200px
   //.btn-join
   //  display: none
   &._easy, &._medium, &._hight
@@ -138,6 +139,7 @@ body
       &__open
         display: flex
       &__btn
+        animation-delay: .4s
         animation: 2.3s showBtnDelay ease-in-out
         margin-bottom: 50px
       &__bottom-txt
@@ -1008,6 +1010,7 @@ body
       height: 36px
       font-size: 30px
       padding: 5px 30px
+      text-transform: uppercase
       color: $white
       font-family: $font-spaceland-it
       background: white
@@ -1023,8 +1026,8 @@ body
       position: absolute
       left: -28px
       top: -38px
-      min-width: 155px
-      padding: 2px 26px 10px
+      min-width: 160px
+      padding: 4px 26px 10px
       color: $magenta
       font-family: $font-spaceland-it
       font-size: 33px
@@ -1152,6 +1155,11 @@ body
     background: url("https://fav-prom.com/html/football-challange-2/img/notify/notify-bg-tab.png") no-repeat 0 0/contain
   @media screen and (max-width: 600px)
     background: url("https://fav-prom.com/html/football-challange-2/img/notify/notify-bg-mob.png") no-repeat 0 0/contain
+  &.margin-top
+    margin-top: 50px
+    z-index: 5
+    @media screen and (max-width: 600px)
+      margin-top: 100px
   &__info
     display: block
     position: absolute
