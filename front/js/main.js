@@ -11,7 +11,12 @@
         participateBtns = document.querySelectorAll('.part-btn'),
         redirectBtns = document.querySelectorAll('.btn-join'),
         choseCards = document.querySelectorAll(".chose__card"),
-        choseCardsInfo = document.querySelectorAll(".chose__card-info")
+        choseCardsInfo = document.querySelectorAll(".chose__card-info"),
+        welcomeLock = document.querySelector(".welcome__lock"),
+        welcomeTimer = document.querySelector(".welcome__timer")
+
+    welcomeLock.classList.add("hide")
+    welcomeTimer.classList.add("hide")
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
@@ -53,11 +58,9 @@
         { userid: 100300268, bet: 6 },
     ];
 
-    sessionStorage.removeItem("userMode")
 
     let i18nData = {};
     const translateState = true;
-    let userMode;
     let userId = null;
 
     async function init() {
@@ -94,37 +97,6 @@
 
         await waitForUserId;
     }
-
-
-    // function init() {
-    //     if (window.store) {
-    //         var state = window.store.getState();
-    //         userId = state.auth.isAuthorized && state.auth.id || '';
-    //         checkUserAuth();
-    //         renderUsers()
-    //     } else {
-    //         let c = 0;
-    //         var i = setInterval(function () {
-    //             if (c < 50) {
-    //                 if (!!window.g_user_id) {
-    //                     userId = window.g_user_id;
-    //                     checkUserAuth();
-    //                     renderUsers()
-    //                     clearInterval(i);
-    //                 }
-    //             } else {
-    //                 checkUserAuth();
-    //                 renderUsers()
-    //                 clearInterval(i);
-    //             }
-    //             checkUserAuth();
-    //             renderUsers()
-    //         }, 200);
-    //     }
-    //     // checkUserAuth() // для локального тесту
-    //     // renderUsers() // для локального тесту
-    // }
-    //
 
 
     function participate(mode) {
@@ -319,6 +291,23 @@
         element.classList.add(baseCssClass + locale);
     }
 
+    function reportError(err) {
+        const reportData = {
+            origin: window.location.href,
+            userid: userId,
+            errorText: err?.error || err?.text || err?.message || 'Unknown error',
+            type: err?.name || 'UnknownError',
+            stack: err?.stack || ''
+        };
+
+        fetch('https://fav-prom.com/api-cms/reports/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reportData)
+        }).catch(console.warn);
+    }
 
     const request = function (link, extraOptions) {
         return fetch(apiURL + link, {
@@ -327,11 +316,34 @@
                 'Content-Type': 'application/json'
             },
             ...(extraOptions || {})
-        }).then(res => res.json())
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('API error');
+                return res.json();
+            })
+            .catch(err => {
+                console.error('API request failed:', err);
+
+                reportError(err);
+
+                document.querySelector('.fav-page').style.display = 'none';
+                if (window.location.href.startsWith("https://www.favbet.hr/")) {
+                    window.location.href = '/promocije/promocija/stub/';
+                } else {
+                    window.location.href = '/promos/promo/stub/';
+                }
+
+                return Promise.reject(err);
+            });
+
     }
 
     function checkUserAuth() {
         if (userId) {
+            setTimeout(() =>{
+                welcomeTimer.classList.remove("hide")
+
+            }, 300)
             for (const unauthMes of unauthMsgs) {
                 unauthMes.classList.add('hide');
             }
@@ -343,12 +355,7 @@
                     if (res.userid) {
                         participateBtns.forEach(item => item.classList.add('hide'));
                         redirectBtns.forEach(item => item.classList.remove('hide'));
-                        if(res.mode){
-                           userMode = res.mode
-                        }
-
-                        sessionStorage.setItem("userMode", userMode)
-
+                        welcomeLock.classList.add("hide")
                         const css = modeMap[res.mode];
                         toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", css, false);
                         displayUserInfo(res);
@@ -356,6 +363,7 @@
                         initChooseCards(choseCards);
                         participateBtns.forEach(item => item.classList.remove('hide'));
                         redirectBtns.forEach(item => item.classList.add('hide'));
+                        welcomeLock.classList.remove("hide")
                     }
                 })
         } else {
@@ -369,6 +377,10 @@
             for (const unauthMes of unauthMsgs) {
                 unauthMes.classList.remove('hide');
             }
+            welcomeLock.classList.remove("hide")
+            setTimeout(() =>{
+                welcomeTimer.classList.remove("hide")
+            }, 300)
             return Promise.resolve(false);
         }
     }
@@ -379,7 +391,6 @@
             return;
         }
 
-        // userMode = sessionStorage.getItem("userMode")
 
         request(`/users/`).then(data => {
             const user = data.find(user => user.userid === userId);
