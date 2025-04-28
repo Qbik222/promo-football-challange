@@ -172,7 +172,7 @@
                     elem.removeAttribute('data-translate');
                 })
             }else{
-                console.log("translation work!")
+                console.log("translation works!")
             }
         }
         if (locale === 'en') {
@@ -189,20 +189,23 @@
     }
 
     function displayUserInfo(userInfo) {
-        const bets = userInfo.bets.slice(0, 20);
+        let bets = userInfo.bets
         // let bets = [{betDate: new Date(), status: 'undefined'}]
-        console.log(userInfo)
-        refreshBets(bets);
+
         displayBetsHistory(bets);
         refreshLastUpdatedDate(userInfo);
+        bets = userInfo.bets
+            .sort((a, b) => new Date(b.betDate) - new Date(a.betDate))
+            .slice(0, 10)
+            .reverse();
+        refreshBets(bets);
     }
 
     function refreshLastUpdatedDate(userInfo) {
-        console.log(userInfo)
         const dateContainer = document.querySelector('.result__last-upd');
         const span = document.getElementById('lastUpd');
-        if (userInfo.date) {
-            span.innerHTML = formatDate(userInfo.date);
+        if (userInfo.lastUpdate) {
+            span.innerHTML = formatDate(userInfo.lastUpdate);
             dateContainer.classList.remove('hide');
         } else {
             dateContainer.classList.add('hide');
@@ -243,7 +246,7 @@
         const noBets = !bets || bets.length === 0;
 
         if (noBets && !debug) {
-            console.log(noBets, debug)
+            // console.log(noBets, debug)
             spinItem.classList.add('hide');
             noSpinItem.classList.remove('hide');
             return;
@@ -253,7 +256,6 @@
             bets = mockBets
         }
 
-        console.log(bets)
 
         spinItem.innerHTML =
             `
@@ -334,7 +336,7 @@
                 unauthMes.classList.add('hide');
             }
             for (const info of choseCardsInfo) {
-                info.classList.add('hide');
+                info.classList.remove('hide');
             }
             return request(`/favuser/${userId}?nocache=1`)
                 .then(res => {
@@ -349,7 +351,6 @@
 
                         const css = modeMap[res.mode];
                         toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", css, false);
-                        console.log(res)
                         displayUserInfo(res);
                     } else {
                         initChooseCards(choseCards);
@@ -373,7 +374,6 @@
     }
 
     function renderUsers() {
-        console.log("render")
         if (debug) {
             populateUsersTable(mockUsers, userId);
             return;
@@ -384,8 +384,7 @@
         request(`/users/`).then(data => {
             const user = data.find(user => user.userid === userId);
             const mode = user ? user.mode : null;
-            const users = data.filter(user => user.mode === mode);
-            console.log(users);
+            const users = data.filter(user => user.mode === mode)
             populateUsersTable(users, userId);
         });
     }
@@ -396,11 +395,11 @@
 
         if (!users?.length || currentUserId === undefined) return;
 
-        // Очищення
         youRow.innerHTML = '';
         tableBody.innerHTML = '';
 
-        users.sort((a, b) => b.bet - a.bet);
+        users.sort((a, b) => b.winCount - a.winCount);
+
 
         users.forEach((user, index) => {
             const isCurrentUser = user.userid === currentUserId;
@@ -416,19 +415,18 @@
 
     function displayUser(user, isCurrentUser, place, target) {
 
-        console.log(target)
 
         const userIdDisplay = isCurrentUser ? user.userid : maskUserId(user.userid);
         const row = document.createElement('div');
         row.classList.add('table__row');
 
-        console.log(target)
 
         if (isCurrentUser) {
             // Створення елементу 'you' та вставка його після елементу з місцем
             const youText = document.createElement('div');
             youText.classList.add('table__row-item', '_you-text');
             youText.setAttribute('data-translate', 'you');
+
 
             row.innerHTML = `
             <div class="table__row-item">${place}</div>
@@ -451,13 +449,11 @@
 
             row.classList.add('_you');
         } else {
-            console.log(row)
             row.innerHTML = `
             <div class="table__row-item">${place}</div>
             <div class="table__row-item">${userIdDisplay}</div>
             <div class="table__row-item">${user.winCount}</div>
         `;
-            console.log(row)
 
 
         }
@@ -466,7 +462,7 @@
 
 
     function maskUserId(userId) {
-        return "**" + userId.toString().slice(2);
+        return "****" + userId.toString().slice(4);
     }
 
 
@@ -677,52 +673,52 @@
         });
     });
 
-    //test
-
-    document.querySelector(".menu-btn").addEventListener("click", () =>{
-        document.querySelector(".menu-test").classList.toggle("hide")
-    })
-
-    document.querySelector(".hight-btn").addEventListener("click", () =>{
-        difficults.forEach(css =>{
-            mainPage.classList.remove(css)
-        })
-
-        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_hight", true);
-    })
-    document.querySelector(".easy-btn").addEventListener("click", () =>{
-        difficults.forEach(css =>{
-            mainPage.classList.remove(css)
-        })
-        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_easy", true);
-    })
-    document.querySelector(".medium-btn").addEventListener("click", () =>{
-        difficults.forEach(css =>{
-            mainPage.classList.remove(css)
-        })
-        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_medium", true);
-    })
-
-    document.querySelector('.auth-btn')?.addEventListener('click', () => {
-        const hasId = sessionStorage.getItem('userId');
-        hasId ? sessionStorage.removeItem('userId') : sessionStorage.setItem('userId', '100300268');
-        location.reload();
-    });
-
-    document.querySelector(".lng-btn").addEventListener("click", () => {
-        const currentLocale = sessionStorage.getItem("locale");
-
-        if (currentLocale === "uk") {
-            sessionStorage.removeItem("locale");
-        } else {
-            sessionStorage.setItem("locale", "uk");
-        }
-
-        location.reload();
-    });
-
-    document.querySelector(".dark-btn").addEventListener("click", () =>{
-        document.body.classList.toggle("dark")
-    })
+    // //test
+    //
+    // document.querySelector(".menu-btn").addEventListener("click", () =>{
+    //     document.querySelector(".menu-test").classList.toggle("hide")
+    // })
+    //
+    // document.querySelector(".hight-btn").addEventListener("click", () =>{
+    //     difficults.forEach(css =>{
+    //         mainPage.classList.remove(css)
+    //     })
+    //
+    //     toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_hight", true);
+    // })
+    // document.querySelector(".easy-btn").addEventListener("click", () =>{
+    //     difficults.forEach(css =>{
+    //         mainPage.classList.remove(css)
+    //     })
+    //     toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_easy", true);
+    // })
+    // document.querySelector(".medium-btn").addEventListener("click", () =>{
+    //     difficults.forEach(css =>{
+    //         mainPage.classList.remove(css)
+    //     })
+    //     toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_medium", true);
+    // })
+    //
+    // document.querySelector('.auth-btn')?.addEventListener('click', () => {
+    //     const hasId = sessionStorage.getItem('userId');
+    //     hasId ? sessionStorage.removeItem('userId') : sessionStorage.setItem('userId', '100300268');
+    //     location.reload();
+    // });
+    //
+    // document.querySelector(".lng-btn").addEventListener("click", () => {
+    //     const currentLocale = sessionStorage.getItem("locale");
+    //
+    //     if (currentLocale === "uk") {
+    //         sessionStorage.removeItem("locale");
+    //     } else {
+    //         sessionStorage.setItem("locale", "uk");
+    //     }
+    //
+    //     location.reload();
+    // });
+    //
+    // document.querySelector(".dark-btn").addEventListener("click", () =>{
+    //     document.body.classList.toggle("dark")
+    // })
 
 })();
