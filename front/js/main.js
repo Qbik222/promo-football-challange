@@ -409,7 +409,7 @@
         youRow.innerHTML = '';
         tableBody.innerHTML = '';
 
-        users.sort((a, b) => b.winCount - a.winCount);
+        users = users.sort((a, b) => b.winCount - a.winCount).slice(0, 20);
 
 
         users.forEach((user, index) => {
