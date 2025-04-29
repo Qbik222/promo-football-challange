@@ -117,8 +117,16 @@ body
   background: url("https://fav-prom.com/html/football-challange-2/img/bg.jpg") no-repeat 0 0/cover
   overflow: hidden
   background-size: 100vw 3400px
+  picture, img
+    display: block !important
   //.btn-join
   //  display: none
+  .loader-wrap
+    display: inherit
+    flex-direction: inherit
+    align-items: inherit
+    width: 100%
+    height: 100%
   &._easy, &._medium, &._hight
     .btn-join
       pointer-events: initial
@@ -1825,7 +1833,7 @@ body.dark
   top: 0
   left: 0
   width: 100%
-  height: 100vh
+  height: 100%
   background-color: $blue
   display: flex
   justify-content: center
@@ -1839,6 +1847,11 @@ body.dark
   background: conic-gradient(#3a6ceb 0deg 180deg, #e3bdbd 180deg 360deg)
   animation: rotate 1.5s linear infinite
   mask: radial-gradient(farthest-side, transparent calc(100% - 7px), black calc(100% - 15px))
+
+.fav-page.loading
+  max-height: 100vh
+  overflow: hidden
+
 
 body.dark
   .spinner-overlay

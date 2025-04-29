@@ -15,11 +15,13 @@
         welcomeLock = document.querySelector(".welcome__lock"),
         welcomeTimer = document.querySelector(".welcome__timer"),
         loader = document.querySelector(".spinner-overlay")
+        // images = document.querySelectorAll("picture")
 
     welcomeLock.classList.add("hide")
     welcomeTimer.classList.add("hide")
 
-    mainPage.style.overflow = "hidden"
+    document.body.style.overflow = "hidden"
+
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
@@ -342,54 +344,59 @@
     }
 
     function checkUserAuth() {
-        if (userId) {
-            setTimeout(() =>{
-                welcomeTimer.classList.remove("hide")
+        let loadTime = 200;
+        setTimeout(() =>{
+            if (userId) {
+                setTimeout(() =>{
+                    welcomeTimer.classList.remove("hide")
 
-            }, 300)
-            for (const unauthMes of unauthMsgs) {
-                unauthMes.classList.add('hide');
+                }, 300)
+                for (const unauthMes of unauthMsgs) {
+                    unauthMes.classList.add('hide');
+                }
+                for (const info of choseCardsInfo) {
+                    info.classList.remove('hide');
+                }
+                return request(`/favuser/${userId}?nocache=1`)
+                    .then(res => {
+                        if (res.userid) {
+                            participateBtns.forEach(item => item.classList.add('hide'));
+                            redirectBtns.forEach(item => item.classList.remove('hide'));
+                            welcomeLock.classList.add("hide")
+                            const css = modeMap[res.mode];
+                            toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", css, false);
+                            displayUserInfo(res);
+                        } else {
+                            initChooseCards(choseCards);
+                            participateBtns.forEach(item => item.classList.remove('hide'));
+                            redirectBtns.forEach(item => item.classList.add('hide'));
+                            welcomeLock.classList.remove("hide")
+                        }
+                        loader.classList.add("hide")
+                        document.body.style.overflow = "auto"
+                        mainPage.classList.remove("loading")
+                    })
+            } else {
+                // displayUserSpins(0);
+                for (const info of choseCardsInfo) {
+                    info.classList.add('hide');
+                }
+                for (let participateBtn of participateBtns) {
+                    participateBtn.classList.add('hide');
+                }
+                for (const unauthMes of unauthMsgs) {
+                    unauthMes.classList.remove('hide');
+                }
+                welcomeLock.classList.remove("hide")
+                setTimeout(() =>{
+                    welcomeTimer.classList.remove("hide")
+                }, 300)
+                loader.classList.add("hide")
+                document.body.style.overflow = "auto"
+                mainPage.classList.remove("loading")
+                return Promise.resolve(false);
             }
-            for (const info of choseCardsInfo) {
-                info.classList.remove('hide');
-            }
-            return request(`/favuser/${userId}?nocache=1`)
-                .then(res => {
-                    if (res.userid) {
-                        participateBtns.forEach(item => item.classList.add('hide'));
-                        redirectBtns.forEach(item => item.classList.remove('hide'));
-                        welcomeLock.classList.add("hide")
-                        const css = modeMap[res.mode];
-                        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", css, false);
-                        displayUserInfo(res);
-                    } else {
-                        initChooseCards(choseCards);
-                        participateBtns.forEach(item => item.classList.remove('hide'));
-                        redirectBtns.forEach(item => item.classList.add('hide'));
-                        welcomeLock.classList.remove("hide")
-                    }
-                    loader.classList.add("hide")
-                    mainPage.style.overflow = "auto"
-                })
-        } else {
-            // displayUserSpins(0);
-            for (const info of choseCardsInfo) {
-                info.classList.add('hide');
-            }
-            for (let participateBtn of participateBtns) {
-                participateBtn.classList.add('hide');
-            }
-            for (const unauthMes of unauthMsgs) {
-                unauthMes.classList.remove('hide');
-            }
-            welcomeLock.classList.remove("hide")
-            setTimeout(() =>{
-                welcomeTimer.classList.remove("hide")
-            }, 300)
-            loader.classList.add("hide")
-            mainPage.style.overflow = "auto"
-            return Promise.resolve(false);
-        }
+        }, loadTime)
     }
 
     function renderUsers() {
