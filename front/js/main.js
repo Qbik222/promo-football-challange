@@ -13,10 +13,13 @@
         choseCards = document.querySelectorAll(".chose__card"),
         choseCardsInfo = document.querySelectorAll(".chose__card-info"),
         welcomeLock = document.querySelector(".welcome__lock"),
-        welcomeTimer = document.querySelector(".welcome__timer")
+        welcomeTimer = document.querySelector(".welcome__timer"),
+        loader = document.querySelector(".spinner-overlay")
 
     welcomeLock.classList.add("hide")
     welcomeTimer.classList.add("hide")
+
+    mainPage.style.overflow = "hidden"
 
     const ukLeng = document.querySelector('#ukLeng');
     const enLeng = document.querySelector('#enLeng');
@@ -365,6 +368,8 @@
                         redirectBtns.forEach(item => item.classList.add('hide'));
                         welcomeLock.classList.remove("hide")
                     }
+                    loader.classList.add("hide")
+                    mainPage.style.overflow = "auto"
                 })
         } else {
             // displayUserSpins(0);
@@ -381,6 +386,8 @@
             setTimeout(() =>{
                 welcomeTimer.classList.remove("hide")
             }, 300)
+            loader.classList.add("hide")
+            mainPage.style.overflow = "auto"
             return Promise.resolve(false);
         }
     }
@@ -409,7 +416,7 @@
         youRow.innerHTML = '';
         tableBody.innerHTML = '';
 
-        users = users.sort((a, b) => b.winCount - a.winCount).slice(0, 20);
+        users = users.sort((a, b) => b.winCount - a.winCount);
 
 
         users.forEach((user, index) => {
@@ -419,6 +426,7 @@
             if(index <= 5 && isCurrentUser){
                isTopUser = true
             }
+            if(index >= 20 && !isCurrentUser) return
 
             displayUser(user, isCurrentUser, index + 1, isCurrentUser && !isTopUser ? youRow : tableBody);
         });
