@@ -17,8 +17,8 @@
         loader = document.querySelector(".spinner-overlay")
         // images = document.querySelectorAll("picture")
 
-    welcomeLock.classList.add("hide")
-    welcomeTimer.classList.add("hide")
+    // welcomeLock.classList.add("hide")
+    // welcomeTimer.classList.add("hide")
 
     document.body.style.overflow = "hidden"
 
@@ -70,8 +70,8 @@
 
     async function init() {
         let attempts = 0;
-        const maxAttempts = 50;
-        const attemptInterval = 200;
+        const maxAttempts = 20;
+        const attemptInterval = 50;
 
         function tryDetectUserId() {
             if (window.store) {
@@ -90,9 +90,8 @@
         const waitForUserId = new Promise((resolve) => {
             const interval = setInterval(() => {
                 tryDetectUserId();
-                quickCheckAndRender();
-
                 if (userId || attempts >= maxAttempts) {
+                    quickCheckAndRender();
                     clearInterval(interval);
                     resolve();
                 }
@@ -314,7 +313,7 @@
         }).catch(console.warn);
     }
 
-    const request = function (link, extraOptions) {
+    function request (link, extraOptions) {
         return fetch(apiURL + link, {
             headers: {
                 'Accept': 'application/json',
@@ -329,14 +328,15 @@
             .catch(err => {
                 console.error('API request failed:', err);
 
-                reportError(err);
 
-                document.querySelector('.fav-page').style.display = 'none';
-                if (window.location.href.startsWith("https://www.favbet.hr/")) {
-                    window.location.href = '/promocije/promocija/stub/';
-                } else {
-                    window.location.href = '/promos/promo/stub/';
-                }
+                // reportError(err);
+
+                // document.querySelector('.fav-page').style.display = 'none';
+                // if (window.location.href.startsWith("https://www.favbet.hr/")) {
+                //     window.location.href = '/promocije/promocija/stub/';
+                // } else {
+                //     window.location.href = '/promos/promo/stub/';
+                // }
 
                 return Promise.reject(err);
             });
@@ -601,7 +601,7 @@
         const intervalId = setInterval(updateTimer, 1000);
     }
 
-    startCountdown('.welcome__timer', '2025-05-11T23:59:59');
+    startCountdown('.welcome__timer', '2025-05-11T23:59:59+03:00');
 
     function monitorVisibility(selector, animation, delay) {
         const element = document.querySelector(selector);
