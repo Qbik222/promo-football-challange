@@ -442,6 +442,7 @@
     function displayUser(user, isCurrentUser, place, target) {
 
 
+
         const userIdDisplay = isCurrentUser ? user.userid : maskUserId(user.userid);
         const row = document.createElement('div');
         row.classList.add('table__row');
