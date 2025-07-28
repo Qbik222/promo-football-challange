@@ -1,5 +1,5 @@
 (function () {
-    const apiURL = 'https://fav-prom.com/api_football_challenge_2'
+    const apiURL = 'https://fav-prom.com/api_footbal_challenge_august'
 
     const mainPage = document.querySelector(".fav-page"),
         popupsWrap = document.querySelector(".popup"),
@@ -29,8 +29,8 @@
     const difficults = ["_easy", "_medium", "_hight"];
     const modeMap = {"novice": "_easy", "experienced": "_medium", "insane": "_hight", "_easy": "novice", "_medium": "experienced", "_hight": "insane"};
 
-    let locale = "en"
-
+    // let locale = "en"
+    let locale = sessionStorage.getItem("locale") ? sessionStorage.getItem("locale") : "uk"
 
     if (ukLeng) locale = 'uk';
     if (enLeng) locale = 'en';
@@ -66,7 +66,9 @@
 
     let i18nData = {};
     const translateState = true;
-    let userId = null;
+    // let userId = null;
+
+    let userId = sessionStorage.getItem('userId') ? Number(sessionStorage.getItem('userId')) : null;
 
     async function init() {
         let attempts = 0;
@@ -700,52 +702,52 @@
         });
     });
 
-    // //test
-    //
-    // document.querySelector(".menu-btn").addEventListener("click", () =>{
-    //     document.querySelector(".menu-test").classList.toggle("hide")
-    // })
-    //
-    // document.querySelector(".hight-btn").addEventListener("click", () =>{
-    //     difficults.forEach(css =>{
-    //         mainPage.classList.remove(css)
-    //     })
-    //
-    //     toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_hight", true);
-    // })
-    // document.querySelector(".easy-btn").addEventListener("click", () =>{
-    //     difficults.forEach(css =>{
-    //         mainPage.classList.remove(css)
-    //     })
-    //     toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_easy", true);
-    // })
-    // document.querySelector(".medium-btn").addEventListener("click", () =>{
-    //     difficults.forEach(css =>{
-    //         mainPage.classList.remove(css)
-    //     })
-    //     toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_medium", true);
-    // })
-    //
-    // document.querySelector('.auth-btn')?.addEventListener('click', () => {
-    //     const hasId = sessionStorage.getItem('userId');
-    //     hasId ? sessionStorage.removeItem('userId') : sessionStorage.setItem('userId', '100300268');
-    //     location.reload();
-    // });
-    //
-    // document.querySelector(".lng-btn").addEventListener("click", () => {
-    //     const currentLocale = sessionStorage.getItem("locale");
-    //
-    //     if (currentLocale === "uk") {
-    //         sessionStorage.removeItem("locale");
-    //     } else {
-    //         sessionStorage.setItem("locale", "uk");
-    //     }
-    //
-    //     location.reload();
-    // });
-    //
-    // document.querySelector(".dark-btn").addEventListener("click", () =>{
-    //     document.body.classList.toggle("dark")
-    // })
+    //test
+
+    document.querySelector(".menu-btn").addEventListener("click", () =>{
+        document.querySelector(".menu-test").classList.toggle("hide")
+    })
+
+    document.querySelector(".hight-btn").addEventListener("click", () =>{
+        difficults.forEach(css =>{
+            mainPage.classList.remove(css)
+        })
+
+        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_hight", true);
+    })
+    document.querySelector(".easy-btn").addEventListener("click", () =>{
+        difficults.forEach(css =>{
+            mainPage.classList.remove(css)
+        })
+        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_easy", true);
+    })
+    document.querySelector(".medium-btn").addEventListener("click", () =>{
+        difficults.forEach(css =>{
+            mainPage.classList.remove(css)
+        })
+        toggleBlocks(choseBlock, "choseHide", resultBlock, "resultShow", "_medium", true);
+    })
+
+    document.querySelector('.auth-btn')?.addEventListener('click', () => {
+        const hasId = sessionStorage.getItem('userId');
+        hasId ? sessionStorage.removeItem('userId') : sessionStorage.setItem('userId', '100300268');
+        location.reload();
+    });
+
+    document.querySelector(".lng-btn").addEventListener("click", () => {
+        const currentLocale = sessionStorage.getItem("locale");
+
+        if (currentLocale === "uk") {
+            sessionStorage.removeItem("locale");
+        } else {
+            sessionStorage.setItem("locale", "uk");
+        }
+
+        location.reload();
+    });
+
+    document.querySelector(".dark-btn").addEventListener("click", () =>{
+        document.body.classList.toggle("dark")
+    })
 
 })();
