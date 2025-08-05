@@ -740,7 +740,7 @@
         if (currentLocale === "uk") {
             sessionStorage.removeItem("locale");
         } else {
-            sessionStorage.setItem("locale", "uk");
+            sessionStorage.setItem("locale", "en");
         }
 
         location.reload();
